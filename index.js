@@ -4,19 +4,18 @@ require('dotenv').config()
 
 const { filter, get } = require('lodash/fp')
 const logger = require('./logger')
-const fetchApi = require('./fetchApi')
-const hrefIncludes = require('./filters/href-includes')
+const fetchApi = require('./utils/fetchApi')
+const filters = require('./filters')
+const config = require('./config.json')
 
 fetchApi('/stream/contents?n=100&xt=user/-/state/com.google/read')
 	.then(get('items'))
 	.then(items => {
-		console.log(items.length)
+		logger(items.length)
 		return items
 	})
-	.then(filter(hrefIncludes('/r/hmmm')))
+	.then(filter(filters(config)))
 	.then(items => {
-		console.log(items.length)
-		return items
+		logger(items.length)
 	})
-	// .then(console.log.bind(console))
 	.catch(console.log.bind(console))
