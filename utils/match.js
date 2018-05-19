@@ -1,4 +1,1 @@
-const { isRegExp } = require('lodash')
-
-module.exports = filters => str =>
-	filters.some(filter => (isRegExp(filter) ? filter.test(str) : str.includes(filter)))
+module.exports = arr => str => arr.some(filter => str.includes(filter))
