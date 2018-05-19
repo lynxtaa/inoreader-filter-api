@@ -1,0 +1,42 @@
+{
+  "name": "inoreader-filter",
+  "version": "0.1.0",
+  "description": "Filter RSS Articles",
+  "main": "index.js",
+  "author": "Alex Kondratyuk <lynxtaa@gmail.com>",
+  "repository": "https://github.com/lynxtaa/inoreader-filter.git",
+  "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run lint"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,json,css,scss}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "cross-env": "^5.1.5",
+    "dotenv": "^5.0.1",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.1",
+    "node-fetch": "^2.1.2",
+    "rotating-file-stream": "^1.3.6",
+    "url": "^0.11.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "husky": "^0.15.0-rc.13",
+    "lint-staged": "^7.1.1",
+    "nodemon": "^1.17.4",
+    "prettier": "^1.12.1"
+  },
+  "scripts": {
+    "start": "cross-env NODE_ENV=development nodemon index.js",
+    "start:prod": "cross-env NODE_ENV=production node index.js",
+    "lint": "eslint *.js filters"
+  }
+}
