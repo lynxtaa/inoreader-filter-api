@@ -1,5 +1,4 @@
 const fetch = require('node-fetch')
-const { isObject } = require('lodash')
 
 function getHeaders() {
 	const { APP_ID, APP_KEY, AUTH } = process.env
@@ -17,15 +16,15 @@ function getHeaders() {
 	}
 }
 
-module.exports = async (url, { body, ...rest } = {}) => {
+module.exports = async (url, params = {}) => {
 	const response = await fetch(`https://www.inoreader.com/reader/api/0${url}`, {
 		headers: getHeaders(),
-		...rest,
-		body: isObject(body) ? JSON.stringify(body) : body,
+		params,
 	})
 
 	if (!response.ok) {
 		throw new Error((await response.text()) || response.statusText)
 	}
-	return response.json()
+
+	return response
 }
