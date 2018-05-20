@@ -14,9 +14,7 @@ getUnread()
 	.then(filter(checkItem(config)))
 	.then(
 		items =>
-			items.length > 0
-				? markAsRead(items).then(() => `Marked as read:\n${getTitles(items)}`)
-				: 'No matches',
+			items.length > 0 &&
+			markAsRead(items).then(() => logger(`Marked as read:\n${getTitles(items)}`)),
 	)
-	.then(logger)
 	.catch(logger)
