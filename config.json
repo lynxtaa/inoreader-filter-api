@@ -1,6 +1,6 @@
 {
 	"hrefs": [
-		"/r/politic/",
+		"/r/politics/",
 		"/r/atheism/",
 		"/r/sports/",
 		"/r/nba/",
@@ -9,15 +9,19 @@
 		"/r/overwatch/",
 		"/r/thrump/",
 		"/r/bidenbro/",
-		"/r/getmotivated/",
+		"/r/GetMotivated/",
 		"/r/brendan/",
-		"/r/adviceanimals/",
+		"/r/AdviceAnimals/",
 		"/r/me_irl/",
 		"/r/LateStageCapitalism/",
 		"/r/neoliberal/",
 		"/r/esist/",
 		"/r/wholesomememes/",
-		"/r/PoliticalHumor/"
+		"/r/PoliticalHumor/",
+		"/r/thedonald/",
+		"/r/BlackPeopleTwitter/",
+		"/r/BikiniBottomTwitter/",
+		"/r/PrequelMemes"
 	],
 	"titles": ["Дайджест", "Trump", "блокчейн"]
 }
