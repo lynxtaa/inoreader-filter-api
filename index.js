@@ -7,7 +7,10 @@ const markAsRead = require('./inoreader/markAsRead')
 const checkItem = require('./utils/checkItem')
 const config = require('./config.json')
 
-const getTitles = flow(map(get('title')), join('\n'))
+const getTitles = flow(
+	map(get('title')),
+	join('\n'),
+)
 
 getUnread()
 	.then(filter(checkItem(config)))

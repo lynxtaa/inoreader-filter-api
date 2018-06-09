@@ -7,6 +7,8 @@ const getQuery = flow(
 	join('&'),
 )
 
-module.exports = flow(map(get('id')), getQuery, query =>
-	fetchApi(`/edit-tag?${query}`, { method: 'POST' }),
+module.exports = flow(
+	map(get('id')),
+	getQuery,
+	query => fetchApi(`/edit-tag?${query}`, { method: 'POST' }),
 )
