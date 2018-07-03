@@ -2,13 +2,11 @@
 	"root": true,
 	"extends": ["eslint:recommended"],
 	"parserOptions": {
-		"ecmaVersion": 8,
-		"ecmaFeatures": { "experimentalObjectRestSpread": true }
+		"ecmaVersion": 2018
 	},
 	"env": {
 		"es6": true,
-		"node": true,
-		"jest": true
+		"node": true
 	},
 	"rules": {
 		// Possible Errors
@@ -38,6 +36,7 @@
 
 		// Stylistic Issues
 		"no-unneeded-ternary": 2,
+		"prefer-object-spread": 1,
 		"quotes": 0,
 
 		// ECMAScript 6

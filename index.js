@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv-safe').config()
 
 const { filter, flow, map, get, join } = require('lodash/fp')
 const logger = require('./logger')

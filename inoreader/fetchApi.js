@@ -3,10 +3,6 @@ const fetch = require('node-fetch')
 function getHeaders() {
 	const { APP_ID, APP_KEY, AUTH } = process.env
 
-	if (!APP_ID || !APP_KEY || !AUTH) {
-		throw new Error('No auth data')
-	}
-
 	return {
 		Accept: 'application/json',
 		'Content-Type': 'application/json',
