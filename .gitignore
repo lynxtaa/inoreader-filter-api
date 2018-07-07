@@ -1,4 +1,3 @@
 node_modules
-dist
-access.log
 .env
+db.sqlite

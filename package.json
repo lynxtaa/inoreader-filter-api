@@ -2,6 +2,7 @@
   "name": "inoreader-filter",
   "version": "0.1.0",
   "description": "Filter RSS Articles",
+  "private": true,
   "main": "index.js",
   "author": "Alex Kondratyuk <lynxtaa@gmail.com>",
   "repository": "https://github.com/lynxtaa/inoreader-filter.git",
@@ -21,10 +22,13 @@
   "dependencies": {
     "cross-env": "^5.2.0",
     "dotenv-safe": "^6.0.0",
+    "fastify": "^1.7.0",
+    "fastify-plugin": "^1.2.0",
+    "fastify-swagger": "^0.12.0",
+    "http-errors": "^1.6.3",
     "lodash": "^4.17.10",
-    "moment": "^2.22.2",
     "node-fetch": "^2.1.2",
-    "rotating-file-stream": "^1.3.6"
+    "sqlite": "^2.9.2"
   },
   "devDependencies": {
     "eslint": "^5.0.1",
@@ -34,8 +38,8 @@
     "prettier": "^1.13.7"
   },
   "scripts": {
-    "debug": "cross-env NODE_ENV=development nodemon index.js",
-    "start": "cross-env NODE_ENV=production node index.js",
-    "lint": "eslint *.js inoreader utils"
+    "debug": "cross-env NODE_ENV=development nodemon server.js",
+    "start": "cross-env NODE_ENV=production node server.js",
+    "lint": "eslint *.js db routes inoreader utils"
   }
 }
