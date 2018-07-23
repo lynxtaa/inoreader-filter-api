@@ -37,7 +37,9 @@ fastify.register(db, {
 	schema: readFileSync(resolve('./db/db-schema.sql'), 'utf8'),
 })
 
-fastify.get('/', (req, res) => res.redirect('/documentation'))
+fastify.get('/', { schema: { hide: true } }, (req, res) =>
+	res.redirect('/documentation'),
+)
 
 fastify.register(routes)
 
