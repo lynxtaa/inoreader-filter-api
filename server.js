@@ -1,4 +1,6 @@
-require('dotenv-safe').config()
+require('dotenv-safe').config(
+	process.env.CUSTOM_ENV_PATH && { path: process.env.CUSTOM_ENV_PATH },
+)
 
 const swagger = require('fastify-swagger')
 const { resolve } = require('path')
