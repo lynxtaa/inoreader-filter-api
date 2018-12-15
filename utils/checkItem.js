@@ -16,5 +16,4 @@ const titleIncludes = filters =>
 		match(filters),
 	)
 
-module.exports = ({ hrefs, titles }) =>
-	or(hrefIncludes(hrefs), titleIncludes(titles))
+module.exports = ({ hrefs, titles }) => or(hrefIncludes(hrefs), titleIncludes(titles))
