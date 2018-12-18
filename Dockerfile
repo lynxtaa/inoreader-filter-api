@@ -1,4 +1,4 @@
-FROM arm32v7/node:carbon
+FROM arm32v7/node:lts
 
 WORKDIR /server
 
