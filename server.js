@@ -3,7 +3,10 @@ require('dotenv-safe').config(
 )
 
 const swagger = require('fastify-swagger')
-const { resolve } = require('path')
+const handlebars = require('handlebars')
+const pointOfView = require('point-of-view')
+const fastifyStatic = require('fastify-static')
+const { join, resolve } = require('path')
 const { readFileSync } = require('fs')
 const { get } = require('lodash/fp')
 const { name, description, version } = require('./package.json')
@@ -19,6 +22,16 @@ const fastify = require('fastify')({
 		timestamp: false,
 		level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
 	},
+})
+
+fastify.register(pointOfView, {
+	engine: { handlebars },
+	templates: 'templates',
+})
+
+fastify.register(fastifyStatic, {
+	root: join(__dirname, 'public'),
+	prefix: '/public/',
 })
 
 fastify.register(swagger, {
@@ -39,7 +52,10 @@ fastify.register(db, {
 	schema: readFileSync(resolve('./db/db-schema.sql'), 'utf8'),
 })
 
-fastify.get('/', { schema: { hide: true } }, (req, res) => res.redirect('/documentation'))
+fastify.get('/', async (req, reply) => {
+	const hrefs = await fastify.sqlite.all('SELECT * FROM hrefs')
+	reply.view('/index.handlebars', { hrefs })
+})
 
 fastify.register(routes)
 
