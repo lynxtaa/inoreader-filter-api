@@ -53,8 +53,12 @@ fastify.register(db, {
 })
 
 fastify.get('/', async (req, reply) => {
-	const hrefs = await fastify.sqlite.all('SELECT * FROM hrefs')
-	reply.view('/index.handlebars', { hrefs })
+	const [hrefs, titles] = await Promise.all([
+		fastify.sqlite.all('SELECT * FROM hrefs ORDER BY href'),
+		fastify.sqlite.all('SELECT * FROM titles ORDER BY title'),
+	])
+
+	reply.view('/index.handlebars', { hrefs, titles })
 })
 
 fastify.register(routes)

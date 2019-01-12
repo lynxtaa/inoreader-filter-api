@@ -1,3 +1,15 @@
 body {
-	background-color: paleturquoise;
+	font-size: 18px;
+}
+
+.container {
+	max-width: 680px;
+}
+
+li .btn-outline-danger {
+	display: none;
+}
+
+li:hover .btn-outline-danger {
+	display: block;
 }

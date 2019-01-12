@@ -3,13 +3,41 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Inoreader Filter</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+  crossorigin="anonymous">
 <link rel="stylesheet" href="/public/css/styles.css">
+
 <body>
-  <h1>Hello</h1>
-  <ul>
-    {{#each hrefs}}
-      <li>{{href}}</li>
-    {{/each}}
-  </ul>
+  <div class="container py-3">
+    <div>
+      <h2>Hrefs</h2>
+      <form class="pt-2 mb-3">
+        <input class="form-control" id="add-href" type="text" placeholder="Add new href">
+      </form>
+      <ul>
+        {{#each hrefs}}
+        <li>
+          {{href}} <button type="button" class="btn btn-sm btn-outline-danger float-right">×</button>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+
+    <div>
+      <h2>Titles</h2>
+      <form class="pt-2 mb-3">
+        <input class="form-control" id="add-title" type="text" placeholder="Add new title">
+      </form>
+      <ul>
+        {{#each titles}}
+        <li>
+          {{title}} <button type="button" class="btn btn-sm btn-outline-danger float-right">×</button>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+  <script src="/public/js/main.js"></script>
 </body>
+
 </html>
