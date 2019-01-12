@@ -6,8 +6,16 @@ body {
 	max-width: 680px;
 }
 
+li:not(:last-child) {
+	margin-bottom: 0.5rem;
+}
+
 li .btn-outline-danger {
 	display: none;
+}
+
+li:hover {
+	font-weight: bold;
 }
 
 li:hover .btn-outline-danger {

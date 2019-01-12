@@ -27,6 +27,7 @@ const fastify = require('fastify')({
 fastify.register(pointOfView, {
 	engine: { ejs },
 	templates: 'templates',
+	options: { filename: resolve('templates') },
 })
 
 fastify.register(fastifyStatic, {
