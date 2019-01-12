@@ -3,7 +3,7 @@ require('dotenv-safe').config(
 )
 
 const swagger = require('fastify-swagger')
-const handlebars = require('handlebars')
+const ejs = require('ejs')
 const pointOfView = require('point-of-view')
 const fastifyStatic = require('fastify-static')
 const { join, resolve } = require('path')
@@ -25,7 +25,7 @@ const fastify = require('fastify')({
 })
 
 fastify.register(pointOfView, {
-	engine: { handlebars },
+	engine: { ejs },
 	templates: 'templates',
 })
 
@@ -58,7 +58,7 @@ fastify.get('/', async (req, reply) => {
 		fastify.sqlite.all('SELECT * FROM titles ORDER BY title'),
 	])
 
-	reply.view('/index.handlebars', { hrefs, titles })
+	reply.view('/index.ejs', { hrefs, titles })
 })
 
 fastify.register(routes)
