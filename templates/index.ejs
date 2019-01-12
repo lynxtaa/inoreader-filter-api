@@ -3,12 +3,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<title>Inoreader Filter</title>
-	<link
-		rel="stylesheet"
-		href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-		integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-		crossorigin="anonymous"
-	/>
+	<link rel="stylesheet" href="/public/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="/public/css/styles.css" />
 
 	<body>
@@ -16,14 +11,14 @@
 			<div class="row">
 				<div class="col-md">
 					<h2>Hrefs</h2>
-          <%- include('templates/form', { id: 'href', placeholder: 'Add new href' }) %>
+					<%- include('templates/form', { id: 'href', placeholder: 'Add new href' }) %>
 					<%- include('templates/list', { items: hrefs, type: 'href' }) %>
 				</div>
 
 				<div class="col-md">
 					<h2>Titles</h2>
-          <%- include('templates/form', { id: 'title', placeholder: 'Add new title' }) %>
-          <%- include('templates/list', { items: titles, type: 'title' }) %>
+					<%- include('templates/form', { id: 'title', placeholder: 'Add new title' }) %>
+					<%- include('templates/list', { items: titles, type: 'title' }) %>
 				</div>
 			</div>
 		</div>
