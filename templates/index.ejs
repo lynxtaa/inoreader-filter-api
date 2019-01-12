@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<title>Inoreader Filter</title>
+	<link rel="stylesheet" href="/public/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/public/css/styles.css" />
+
+	<body>
+		<div class="container py-3">
+			<h1 class="display-3 mb-5">Inoreader Filter</h1>
+			<div class="row">
+				<div class="col-md">
+					<h2>Hrefs</h2>
+					<%- include('templates/form', { id: 'href' }) %>
+					<%- include('templates/list', { items: hrefs, type: 'href' }) %>
+				</div>
+
+				<div class="col-md">
+					<h2>Titles</h2>
+					<%- include('templates/form', { id: 'title' }) %>
+					<%- include('templates/list', { items: titles, type: 'title' }) %>
+				</div>
+			</div>
+		</div>
+		<script src="/public/js/main.js"></script>
+	</body>
+</html>

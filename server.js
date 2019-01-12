@@ -3,7 +3,10 @@ require('dotenv-safe').config(
 )
 
 const swagger = require('fastify-swagger')
-const { resolve } = require('path')
+const ejs = require('ejs')
+const pointOfView = require('point-of-view')
+const fastifyStatic = require('fastify-static')
+const { join, resolve } = require('path')
 const { readFileSync } = require('fs')
 const { get } = require('lodash/fp')
 const { name, description, version } = require('./package.json')
@@ -19,6 +22,17 @@ const fastify = require('fastify')({
 		timestamp: false,
 		level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
 	},
+})
+
+fastify.register(pointOfView, {
+	engine: { ejs },
+	templates: 'templates',
+	options: { filename: resolve('templates') },
+})
+
+fastify.register(fastifyStatic, {
+	root: join(__dirname, 'public'),
+	prefix: '/public/',
 })
 
 fastify.register(swagger, {
@@ -39,7 +53,14 @@ fastify.register(db, {
 	schema: readFileSync(resolve('./db/db-schema.sql'), 'utf8'),
 })
 
-fastify.get('/', { schema: { hide: true } }, (req, res) => res.redirect('/documentation'))
+fastify.get('/', async (req, reply) => {
+	const [hrefs, titles] = await Promise.all([
+		fastify.sqlite.all('SELECT * FROM hrefs ORDER BY href'),
+		fastify.sqlite.all('SELECT * FROM titles ORDER BY title'),
+	])
+
+	reply.view('/index.ejs', { hrefs, titles })
+})
 
 fastify.register(routes)
 
@@ -53,7 +74,6 @@ async function runFilter() {
 			fastify.sqlite.all('SELECT href FROM hrefs'),
 			fastify.sqlite.all('SELECT title FROM titles'),
 		])
-
 		await createdFilter.run({
 			hrefs: hrefs.map(get('href')),
 			titles: titles.map(get('title')),
