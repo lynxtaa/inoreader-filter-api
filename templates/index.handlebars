@@ -9,32 +9,34 @@
 
 <body>
   <div class="container py-3">
-    <div>
-      <h2>Hrefs</h2>
-      <form class="pt-2 mb-3">
-        <input class="form-control" id="add-href" type="text" placeholder="Add new href">
-      </form>
-      <ul>
-        {{#each hrefs}}
-        <li>
-          {{href}} <button type="button" class="btn btn-sm btn-outline-danger float-right">×</button>
-        </li>
-        {{/each}}
-      </ul>
-    </div>
+    <div class="row">
+      <div class="col-md">
+        <h2>Hrefs</h2>
+        <form class="pt-2 mb-3">
+          <input class="form-control" id="href" type="text" placeholder="Add new href">
+        </form>
+        <ul>
+          {{#each hrefs}}
+          <li>
+            {{href}} <button type="button" class="btn btn-sm btn-outline-danger float-right" value="href-{{id}}">×</button>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
 
-    <div>
-      <h2>Titles</h2>
-      <form class="pt-2 mb-3">
-        <input class="form-control" id="add-title" type="text" placeholder="Add new title">
-      </form>
-      <ul>
-        {{#each titles}}
-        <li>
-          {{title}} <button type="button" class="btn btn-sm btn-outline-danger float-right">×</button>
-        </li>
-        {{/each}}
-      </ul>
+      <div class="col-md">
+        <h2>Titles</h2>
+        <form class="pt-2 mb-3">
+          <input class="form-control" id="title" type="text" placeholder="Add new title">
+        </form>
+        <ul>
+          {{#each titles}}
+          <li>
+            {{title}} <button type="button" class="btn btn-sm btn-outline-danger float-right" value="title-{{id}}">×</button>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
     </div>
   </div>
   <script src="/public/js/main.js"></script>

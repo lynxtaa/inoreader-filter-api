@@ -68,19 +68,18 @@ const createdFilter = inoFilter({ logger: fastify.log })
 const INTERVAL = 15 * 60 * 1000
 
 async function runFilter() {
-	try {
-		const [hrefs, titles] = await Promise.all([
-			fastify.sqlite.all('SELECT href FROM hrefs'),
-			fastify.sqlite.all('SELECT title FROM titles'),
-		])
-
-		await createdFilter.run({
-			hrefs: hrefs.map(get('href')),
-			titles: titles.map(get('title')),
-		})
-	} catch (err) {
-		fastify.log.error(err)
-	}
+	// try {
+	// 	const [hrefs, titles] = await Promise.all([
+	// 		fastify.sqlite.all('SELECT href FROM hrefs'),
+	// 		fastify.sqlite.all('SELECT title FROM titles'),
+	// 	])
+	// 	await createdFilter.run({
+	// 		hrefs: hrefs.map(get('href')),
+	// 		titles: titles.map(get('title')),
+	// 	})
+	// } catch (err) {
+	// 	fastify.log.error(err)
+	// }
 }
 
 fastify.listen(process.env.PORT || 7000, '0.0.0.0', err => {
