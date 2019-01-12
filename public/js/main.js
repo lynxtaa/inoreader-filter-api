@@ -10,9 +10,24 @@
 		const response = await fetch(url, params)
 		const data = await response.json()
 
-		if (!response.ok) {
-			throw new Error(`Fetch error: ${data.statusCode}: ${data.message}`)
-		}
+		return response.ok
+			? data
+			: Promise.reject(new Error(`Fetch error: ${data.statusCode}: ${data.message}`))
+	}
+
+	function showAlert(message, timeout = 3000) {
+		const container = document.body.querySelector('.container')
+
+		const alert = document.createElement('div')
+		alert.setAttribute('class', 'alert alert-danger')
+		alert.setAttribute('role', 'alert')
+		alert.textContent = message
+
+		container.prepend(alert)
+
+		setTimeout(() => {
+			container.removeChild(alert)
+		}, timeout)
 	}
 
 	for (const form of document.querySelectorAll('form')) {
@@ -21,10 +36,10 @@
 			const input = form.querySelector('input')
 			fetchJSON(`/${input.id}s`, {
 				method: 'POST',
-				body: JSON.stringify({ [input.id]: input.value }),
+				body: { [input.id]: input.value },
 			})
 				.then(() => window.location.reload())
-				.catch(err => alert(err.message))
+				.catch(err => showAlert(err.message))
 		})
 	}
 
@@ -37,7 +52,7 @@
 			const [type, id] = deleteBtn.value.split('-')
 			fetchJSON(`/${type}s/${id}`, { method: 'DELETE' })
 				.then(() => window.location.reload())
-				.catch(err => alert(err.message))
+				.catch(err => showAlert(err.message))
 		})
 	}
 }
