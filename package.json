@@ -1,11 +1,11 @@
 {
-  "name": "inoreader-filter",
+  "name": "inoreader-filter-api",
   "version": "0.3.0",
   "description": "Filter RSS Articles",
   "private": true,
   "main": "index.js",
   "author": "Alex Kondratyuk <lynxtaa@gmail.com>",
-  "repository": "https://github.com/lynxtaa/inoreader-filter.git",
+  "repository": "https://github.com/lynxtaa/inoreader-filter-api.git",
   "license": "MIT",
   "husky": {
     "hooks": {
@@ -18,6 +18,7 @@
     "dotenv-safe": "^6.1.0",
     "ejs": "^2.6.1",
     "fastify": "^1.13.4",
+    "fastify-compress": "^0.8.0",
     "fastify-plugin": "^1.4.0",
     "fastify-static": "^1.1.0",
     "fastify-swagger": "^1.0.0",

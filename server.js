@@ -6,6 +6,7 @@ const swagger = require('fastify-swagger')
 const ejs = require('ejs')
 const pointOfView = require('point-of-view')
 const fastifyStatic = require('fastify-static')
+const fastifyCompress = require('fastify-compress')
 const { join, resolve } = require('path')
 const { readFileSync } = require('fs')
 const { get } = require('lodash/fp')
@@ -23,6 +24,8 @@ const fastify = require('fastify')({
 		level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
 	},
 })
+
+fastify.register(fastifyCompress)
 
 fastify.register(pointOfView, {
 	engine: { ejs },
@@ -51,15 +54,6 @@ fastify.register(swagger, {
 fastify.register(db, {
 	path: resolve('./db.sqlite'),
 	schema: readFileSync(resolve('./db/db-schema.sql'), 'utf8'),
-})
-
-fastify.get('/', async (req, reply) => {
-	const [hrefs, titles] = await Promise.all([
-		fastify.sqlite.all('SELECT * FROM hrefs ORDER BY href'),
-		fastify.sqlite.all('SELECT * FROM titles ORDER BY title'),
-	])
-
-	reply.view('/index.ejs', { hrefs, titles })
 })
 
 fastify.register(routes)

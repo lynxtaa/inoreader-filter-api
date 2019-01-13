@@ -1,14 +1,16 @@
 <ul>
 	<% for (const item of items) { %>
 	<li class="py-1">
-		<%= item[type] %>
-		<button
-			type="button"
-			class="btn btn-sm btn-outline-danger float-right"
-			value="<%= `${type}-${item.id}` %>"
-		>
-			×
-		</button>
+		<div class="d-flex">
+			<%= item[type] %>
+			<button
+				type="button"
+				class="btn btn-sm btn-outline-danger ml-auto"
+				value="<%= `${type}-${item.id}` %>"
+			>
+				×
+			</button>
+		</div>
 	</li>
 	<% } %>
 </ul>

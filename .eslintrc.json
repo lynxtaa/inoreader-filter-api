@@ -22,6 +22,7 @@
 		"no-eq-null": 1,
 		"no-extra-bind": 1,
 		"no-invalid-this": 1,
+		"no-loop-func": 1,
 		"no-return-assign": 1,
 		"no-return-await": 2,
 		"no-throw-literal": 2,
