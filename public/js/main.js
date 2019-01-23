@@ -38,7 +38,10 @@
 				method: 'POST',
 				body: { [input.id]: input.value },
 			})
-				.then(() => window.location.reload())
+				.then(() => {
+					input.value = ''
+					window.location.reload()
+				})
 				.catch(err => showAlert(err.message))
 		})
 	}
