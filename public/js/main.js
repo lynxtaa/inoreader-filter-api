@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-lone-blocks
 {
 	async function fetchJSON(url, params = {}) {
 		if (params.body) {
