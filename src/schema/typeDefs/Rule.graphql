@@ -1,0 +1,8 @@
+type Rule {
+	id: Int!
+	createdAt: DateTime!
+	isActive: Boolean!
+	lastHitAt: DateTime
+	hits: Int!
+	rule: FilterRule!
+}

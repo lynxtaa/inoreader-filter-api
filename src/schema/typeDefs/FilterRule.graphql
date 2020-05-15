@@ -1,0 +1,17 @@
+enum ArticleProp {
+	href
+	title
+}
+
+enum FilterType {
+	contains
+	equal
+	matchRegexp
+}
+
+type FilterRule {
+	prop: ArticleProp!
+	type: FilterType!
+	negate: Boolean
+	value: String!
+}
