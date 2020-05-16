@@ -1,26 +1,28 @@
-import BaseModel from './BaseModel'
-import Rule from './Rule'
+import { Schema, Document, model } from 'mongoose'
 
-export default class User extends BaseModel {
-	id!: number
-	createdAt!: Date
+import Rule, { IRule } from './Rule'
 
-	inoreaderUserId!: string
-	inoreaderUserName!: string
-	inoreaderAccessToken!: string
-	inoreaderTokenType!: string
-	inoreaderRefreshToken!: string
-	inoreaderAccessTokenExpiresAt!: Date
-
-	rules!: Rule[]
-
-	static tableName = 'users'
-
-	static relationMappings = {
-		rules: {
-			relation: BaseModel.HasManyRelation,
-			modelClass: 'Rule',
-			join: { from: 'users.id', to: 'rules.userIFd' },
-		},
-	}
+export interface IUser extends Document {
+	createdAt: Date
+	inoreaderUserId: string
+	inoreaderUserName: string
+	inoreaderAccessToken: string
+	inoreaderTokenType: string
+	inoreaderRefreshToken: string
+	inoreaderAccessTokenExpiresAt: Date
+	rules: IRule[]
 }
+
+export default model<IUser>(
+	'User',
+	new Schema({
+		createdAt: { type: Date, default: Date.now },
+		inoreaderUserId: { type: String, required: true, unique: true },
+		inoreaderUserName: { type: String, required: true },
+		inoreaderAccessToken: { type: String, required: true },
+		inoreaderTokenType: { type: String, required: true },
+		inoreaderRefreshToken: { type: String, required: true },
+		inoreaderAccessTokenExpiresAt: { type: Date, required: true },
+		rules: { type: [Rule.schema], required: true },
+	}),
+)

@@ -1,5 +1,5 @@
 type Rule {
-	id: Int!
+	_id: ID!
 	createdAt: DateTime!
 	isActive: Boolean!
 	lastHitAt: DateTime

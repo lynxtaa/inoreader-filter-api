@@ -7,7 +7,6 @@ import fastifySecureSession from 'fastify-secure-session'
 import fastifyStatic from 'fastify-static'
 import pointOfView from 'point-of-view'
 
-import loaders from './loaders/loaders'
 import schema from './schema'
 
 export default function app({
@@ -24,6 +23,10 @@ export default function app({
 		},
 	})
 
+	fastify.get('/', (req, res) => {
+		res.send('ok')
+	})
+
 	fastify.register(fastifySecureSession, {
 		secret: 'averylogphrasebiggerthanthirtytwochars',
 		salt: 'mq9hDxBVDbspDR6n',
@@ -31,7 +34,7 @@ export default function app({
 
 	fastify.register(GQL, {
 		schema,
-		loaders,
+		graphiql: 'playground',
 		context: (request: any, reply: any) => ({
 			request,
 			reply,
@@ -42,11 +45,11 @@ export default function app({
 	fastify.register(pointOfView, {
 		engine: { ejs },
 		templates: 'templates',
-		options: { filename: resolve('templates') },
+		options: { filename: resolve(__dirname, 'templates') },
 	})
 
 	fastify.register(fastifyStatic, {
-		root: resolve('../public'),
+		root: resolve(__dirname, '../public'),
 		prefix: '/public/',
 	})
 

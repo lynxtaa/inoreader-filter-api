@@ -1,9 +1,6 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const BaseModel_1 = __importDefault(require("./BaseModel"));
+const mongoose_1 = require("mongoose");
 var ArticleProp;
 (function (ArticleProp) {
     ArticleProp["Href"] = "href";
@@ -15,26 +12,15 @@ var FilterType;
     FilterType["Equal"] = "equal";
     FilterType["MatchRegexp"] = "matchRegexp";
 })(FilterType || (FilterType = {}));
-let Rule = /** @class */ (() => {
-    class Rule extends BaseModel_1.default {
-    }
-    Rule.tableName = 'rules';
-    Rule.jsonAttributes = ['rule'];
-    Rule.jsonSchema = {
-        type: 'object',
-        properties: {
-            rule: {
-                type: 'object',
-                required: ['prop', 'type', 'value'],
-                properties: {
-                    prop: { type: 'string', enum: Object.values(ArticleProp) },
-                    type: { type: 'string', enum: Object.values(FilterType) },
-                    negate: { type: 'boolean' },
-                    value: { type: 'string' },
-                },
-            },
-        },
-    };
-    return Rule;
-})();
-exports.default = Rule;
+exports.default = mongoose_1.model('Rule', new mongoose_1.Schema({
+    createdAt: { type: Date, default: Date.now },
+    isActive: { type: Boolean, required: true },
+    lastHitAt: Date,
+    hits: { type: Number, required: true },
+    ruleDef: {
+        prop: { type: String, required: true, enum: Object.values(ArticleProp) },
+        type: { type: String, required: true, enum: Object.values(FilterType) },
+        negate: Boolean,
+        value: { type: String, required: true, maxlength: 128 },
+    },
+}));

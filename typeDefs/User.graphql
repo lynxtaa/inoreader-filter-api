@@ -1,5 +1,5 @@
 type User {
-	id: Int!
+	_id: ID!
 	createdAt: DateTime!
 	inoreaderUserId: String!
 	inoreaderUserName: String!
