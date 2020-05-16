@@ -30,7 +30,7 @@
 	}
 
 	for (const form of document.querySelectorAll('form')) {
-		form.addEventListener('submit', event => {
+		form.addEventListener('submit', (event) => {
 			event.preventDefault()
 
 			const input = form.querySelector('input')
@@ -43,7 +43,7 @@
 					input.value = ''
 					window.location.reload()
 				})
-				.catch(err => showAlert(err.message))
+				.catch((err) => showAlert(err.message))
 		})
 	}
 
@@ -54,7 +54,7 @@
 
 				return fetchJSON(`/${type}s/${id}`, { method: 'DELETE' })
 					.then(() => window.location.reload())
-					.catch(err => showAlert(err.message))
+					.catch((err) => showAlert(err.message))
 			}
 
 			deleteBtn.textContent = 'DELETE'

@@ -23,10 +23,6 @@ export default function app({
 		},
 	})
 
-	fastify.get('/', (req, res) => {
-		res.send('ok')
-	})
-
 	fastify.register(fastifySecureSession, {
 		secret: 'averylogphrasebiggerthanthirtytwochars',
 		salt: 'mq9hDxBVDbspDR6n',
