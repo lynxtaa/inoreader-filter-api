@@ -1,48 +1,45 @@
 import { resolve } from 'path'
 
-import ejs from 'ejs'
 import Fastify from 'fastify'
+import fastifyCookie from 'fastify-cookie'
 import GQL from 'fastify-gql'
-import fastifySecureSession from 'fastify-secure-session'
+import fastifySession from 'fastify-session'
 import fastifyStatic from 'fastify-static'
-import pointOfView from 'point-of-view'
+import ms from 'ms'
 
-import schema from './schema'
+import SessionStore from './SessionStore'
+import schema, { context } from './schema'
 
 export default function app({
+	env,
+	secret,
 	logLevel,
 }: {
+	env: string
 	logLevel?: 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal'
-} = {}) {
+	secret: string
+}) {
 	const fastify = Fastify({
 		logger: {
 			base: null,
-			prettyPrint: process.env.NODE_ENV !== 'production' && { colorize: true },
+			prettyPrint: env !== 'production' && { colorize: true },
 			timestamp: false,
-			level: logLevel || (process.env.NODE_ENV === 'production' ? 'info' : 'debug'),
+			level: logLevel || (env === 'production' ? 'info' : 'debug'),
 		},
 	})
 
-	fastify.register(fastifySecureSession, {
-		secret: 'averylogphrasebiggerthanthirtytwochars',
-		salt: 'mq9hDxBVDbspDR6n',
+	fastify.register(fastifyCookie)
+
+	fastify.register(fastifySession, {
+		secret,
+		store: new SessionStore(),
+		cookie: {
+			sameSite: 'Lax',
+			maxAge: ms('1 month'),
+		},
 	})
 
-	fastify.register(GQL, {
-		schema,
-		graphiql: 'playground',
-		context: (request: any, reply: any) => ({
-			request,
-			reply,
-			user: request.session.get('user'),
-		}),
-	})
-
-	fastify.register(pointOfView, {
-		engine: { ejs },
-		templates: 'templates',
-		options: { filename: resolve(__dirname, 'templates') },
-	})
+	fastify.register(GQL, { schema, graphiql: 'playground', context })
 
 	fastify.register(fastifyStatic, {
 		root: resolve(__dirname, '../public'),

@@ -3,3 +3,4 @@ package-lock.json
 bootstrap.min.css
 /coverage
 /build
+/src/gql/*

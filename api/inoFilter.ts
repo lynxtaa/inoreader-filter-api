@@ -18,7 +18,9 @@ export default function inoFilter({
 			.then(async (items) => {
 				if (items.length > 0) {
 					await markAsRead(items)
-					logger.info(`Marked as read:\n${items.map((item) => item.title).join('\n')}`)
+					logger.info(
+						`Marked as read:\n${items.map((item) => item.title).join('\n')}`,
+					)
 				}
 			})
 			.catch(logger.error)

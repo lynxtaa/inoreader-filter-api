@@ -1,4 +1,8 @@
-import { DateTimeResolver, EmailAddressResolver, URLResolver } from 'graphql-scalars'
+import {
+	DateTimeResolver,
+	EmailAddressResolver,
+	URLResolver,
+} from 'graphql-scalars'
 
 export default {
 	DateTime: DateTimeResolver,

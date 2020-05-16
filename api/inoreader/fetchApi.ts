@@ -16,7 +16,9 @@ export default async function fetchApi(url: string, params: RequestInit = {}) {
 
 	if (!response.ok) {
 		const text = await response.text()
-		throw new Error(`Request ${response.url} failed: ${text} (${response.status})`)
+		throw new Error(
+			`Request ${response.url} failed: ${text} (${response.status})`,
+		)
 	}
 
 	return response

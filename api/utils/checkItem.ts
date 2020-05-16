@@ -2,7 +2,8 @@ import { Article } from '../inoreader/getUnread'
 
 import match from './match'
 
-const or = <T>(...fns: ((val: T) => boolean)[]) => (x: T) => fns.some((fn) => fn(x))
+const or = <T>(...fns: ((val: T) => boolean)[]) => (x: T) =>
+	fns.some((fn) => fn(x))
 
 const hrefIncludes = (filters: string[]) => (article: Article) =>
 	article.canonical.map((el) => el.href).some(match(filters))

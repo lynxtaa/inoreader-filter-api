@@ -4,8 +4,9 @@ import Rule, { IRule } from './Rule'
 
 export interface IUser extends Document {
 	createdAt: Date
+	name: string
+	email: string
 	inoreaderUserId: string
-	inoreaderUserName: string
 	inoreaderAccessToken: string
 	inoreaderTokenType: string
 	inoreaderRefreshToken: string
@@ -17,8 +18,9 @@ export default model<IUser>(
 	'User',
 	new Schema({
 		createdAt: { type: Date, default: Date.now },
+		name: { type: String, required: true },
+		email: { type: String, required: true, unique: true },
 		inoreaderUserId: { type: String, required: true, unique: true },
-		inoreaderUserName: { type: String, required: true },
 		inoreaderAccessToken: { type: String, required: true },
 		inoreaderTokenType: { type: String, required: true },
 		inoreaderRefreshToken: { type: String, required: true },

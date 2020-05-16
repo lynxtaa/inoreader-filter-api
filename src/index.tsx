@@ -1,12 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
+
+import AppRouter from './AppRouter'
 import * as serviceWorker from './serviceWorker'
+import './index.scss'
+import GraphQLProvider from 'components/GraphQLProvider'
+import { UserProvider } from 'context/UserContext'
 
 ReactDOM.render(
 	<React.StrictMode>
-		<App />
+		<GraphQLProvider>
+			<UserProvider>
+				<AppRouter />
+			</UserProvider>
+		</GraphQLProvider>
 	</React.StrictMode>,
 	document.getElementById('root'),
 )

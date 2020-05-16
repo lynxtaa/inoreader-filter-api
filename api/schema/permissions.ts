@@ -24,6 +24,8 @@ export default shield(
 	},
 	{
 		fallbackError: (err) =>
-			err instanceof Error ? err : new Error('Нет прав для выполнения данной операции'),
+			err instanceof Error
+				? err
+				: new Error('Нет прав для выполнения данной операции'),
 	},
 )

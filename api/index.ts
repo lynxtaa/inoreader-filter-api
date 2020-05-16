@@ -6,7 +6,10 @@ import mongoose from 'mongoose'
 import makeApp from './app'
 // import inoFilter from './inoFilter'
 
-const app = makeApp()
+const app = makeApp({
+	secret: process.env.SECRET!,
+	env: process.env.NODE_ENV!,
+})
 
 // const createdFilter = inoFilter({ logger: app.log })
 

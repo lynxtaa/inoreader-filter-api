@@ -15,7 +15,7 @@
 		"import/extensions": [".js", ".ts"]
 	},
 	"rules": {
-		"camelcase": "warn",
+		"no-extra-semi": "off",
 		"eqeqeq": "error",
 		"no-eq-null": "error",
 		"import/no-cycle": "error",
