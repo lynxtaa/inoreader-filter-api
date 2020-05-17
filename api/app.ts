@@ -3,11 +3,9 @@ import { resolve } from 'path'
 import Fastify from 'fastify'
 import fastifyCookie from 'fastify-cookie'
 import GQL from 'fastify-gql'
-import fastifySession from 'fastify-session'
 import fastifyStatic from 'fastify-static'
-import ms from 'ms'
 
-import SessionStore from './SessionStore'
+import addUserFromToken from './hooks/addUserFromToken'
 import schema, { context } from './schema'
 
 export default function app({
@@ -30,21 +28,14 @@ export default function app({
 
 	fastify.register(fastifyCookie)
 
-	fastify.register(fastifySession, {
-		secret,
-		store: new SessionStore(),
-		cookie: {
-			sameSite: 'Lax',
-			maxAge: ms('1 month'),
-		},
-	})
-
 	fastify.register(GQL, { schema, graphiql: 'playground', context })
 
 	fastify.register(fastifyStatic, {
 		root: resolve(__dirname, '../public'),
 		prefix: '/public/',
 	})
+
+	fastify.addHook('preHandler', addUserFromToken)
 
 	return fastify
 }

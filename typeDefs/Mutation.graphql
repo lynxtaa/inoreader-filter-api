@@ -1,3 +1,5 @@
 type Mutation {
-	authorize(authCode: String!): Boolean
+	authorize(authCode: String!): Auth!
+	logout: Boolean
+	refreshToken: Auth!
 }

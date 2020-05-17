@@ -1,6 +1,8 @@
 package.json
 package-lock.json
 bootstrap.min.css
-/coverage
 /build
+/coverage
+/dist
 /src/gql/*
+/src/schema.json

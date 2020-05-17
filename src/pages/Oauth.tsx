@@ -9,7 +9,11 @@ import UserContext from 'context/UserContext'
 
 const AUTHORIZE = gql`
 	mutation authorize($authCode: String!) {
-		authorize(authCode: $authCode)
+		authorize(authCode: $authCode) {
+			accessToken
+			expiresIn
+			tokenType
+		}
 	}
 `
 

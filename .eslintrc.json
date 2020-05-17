@@ -22,10 +22,6 @@
 		"import/no-useless-path-segments": "warn",
 		"import/no-unused-modules": "warn",
 		"import/first": "warn",
-		"import/order": [
-			"warn",
-			{ "alphabetize": { "order": "asc" }, "newlines-between": "always" }
-		],
 		"import/newline-after-import": "warn"
 	},
 	"overrides": [
