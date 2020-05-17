@@ -1,8 +1,6 @@
 import { GraphQLClient, ClientContext } from 'graphql-hooks'
 import React, { useMemo } from 'react'
 
-import fetchWithAuth from 'utils/fetchWithAuth'
-
 type Props = {
 	children: React.ReactNode
 	url?: string
@@ -13,7 +11,6 @@ export default function GraphQLProvider({ url = '/graphql', children }: Props) {
 		() =>
 			new GraphQLClient({
 				url,
-				fetch: fetchWithAuth,
 				onError: ({ operation, result }) => {
 					const { graphQLErrors, httpError, fetchError } = result.error!
 					const message =

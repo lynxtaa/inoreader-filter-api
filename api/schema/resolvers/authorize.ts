@@ -1,12 +1,6 @@
 import { URL } from 'url'
-import ms from 'ms'
 
-import {
-	AccessToken,
-	RefreshToken,
-	sendRefreshToken,
-	authorizeFromInoreader,
-} from '../../utils/auth'
+import { authorizeFromInoreader, setUserToRequest } from '../../utils/auth'
 import { Context } from '../context'
 
 export default {
@@ -14,7 +8,7 @@ export default {
 		async authorize(
 			_: any,
 			{ authCode }: { authCode: string },
-			{ reply, request }: Context,
+			{ request }: Context,
 		) {
 			const refererUrl = new URL(request.headers.referer)
 
@@ -23,20 +17,9 @@ export default {
 				redirectUri: `${refererUrl.origin}${refererUrl.pathname}`,
 			})
 
-			const accessToken = AccessToken.sign({ userId: user._id })
-			const refreshToken = RefreshToken.sign({ userId: user._id })
+			setUserToRequest(request, { id: user._id })
 
-			sendRefreshToken(reply, refreshToken)
-
-			return {
-				accessToken,
-				expiresIn:
-					typeof AccessToken.expiresIn === 'string'
-						? ms(AccessToken.expiresIn) / 1000
-						: AccessToken.expiresIn,
-				tokenType: 'Bearer',
-				user: user,
-			}
+			return true
 		},
 	},
 }

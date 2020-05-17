@@ -1,6 +1,0 @@
-type Auth {
-	accessToken: String!
-	expiresIn: Int!
-	tokenType: String!
-	user: User!
-}

@@ -4,9 +4,11 @@ import Fastify from 'fastify'
 import fastifyCookie from 'fastify-cookie'
 import GQL from 'fastify-gql'
 import fastifyStatic from 'fastify-static'
+import fastifySession from 'fastify-session'
 
-import addUserFromToken from './hooks/addUserFromToken'
 import schema, { context } from './schema'
+import seconds from './utils/seconds'
+import SessionStore from './utils/SessionStore'
 
 export default function app({
 	env,
@@ -28,14 +30,22 @@ export default function app({
 
 	fastify.register(fastifyCookie)
 
+	fastify.register(fastifySession, {
+		secret,
+		store: new SessionStore(),
+		cookie: {
+			httpOnly: true,
+			expires: seconds('6 months'),
+			sameSite: 'lax',
+		},
+	})
+
 	fastify.register(GQL, { schema, graphiql: 'playground', context })
 
 	fastify.register(fastifyStatic, {
 		root: resolve(__dirname, '../public'),
 		prefix: '/public/',
 	})
-
-	fastify.addHook('preHandler', addUserFromToken)
 
 	return fastify
 }

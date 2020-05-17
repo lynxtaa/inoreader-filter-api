@@ -42,50 +42,12 @@ export interface me {
 // GraphQL mutation operation: authorize
 // ====================================================
 
-export interface authorize_authorize {
-  accessToken: string;
-  expiresIn: number;
-  tokenType: string;
-}
-
 export interface authorize {
-  authorize: authorize_authorize;
+  authorize: boolean | null;
 }
 
 export interface authorizeVariables {
   authCode: string;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL mutation operation: refreshToken
-// ====================================================
-
-export interface refreshToken_refreshToken {
-  accessToken: string;
-  expiresIn: number;
-  tokenType: string;
-}
-
-export interface refreshToken {
-  refreshToken: refreshToken_refreshToken;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL mutation operation: logout
-// ====================================================
-
-export interface logout {
-  logout: boolean | null;
 }
 
 /* tslint:disable */

@@ -1,11 +1,10 @@
-import { clearRefreshToken } from '../../utils/auth'
 import { Context } from '../context'
 
 export default {
 	Mutation: {
-		logout(_: any, args: any, { reply }: Context) {
-			clearRefreshToken(reply)
-			return true
-		},
+		logout: (_: any, args: any, { request }: Context) =>
+			new Promise<boolean>((resolve) =>
+				request.destroySession((err) => resolve(!err)),
+			),
 	},
 }

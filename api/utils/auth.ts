@@ -1,40 +1,21 @@
-import { ServerResponse } from 'http'
 import { URLSearchParams } from 'url'
 
-import { FastifyReply, FastifyRequest } from 'fastify'
+import { FastifyRequest } from 'fastify'
 
 import User, { IUser } from '../models/User'
+import { SessionPayload } from './SessionStore'
 
 import { fetchJSON } from './fetchRemote'
-import Token from './Token'
 
-export type AccessTokenPayload = { userId: IUser['_id'] }
-export type RefreshTokenPayload = { userId: IUser['_id'] }
+export const getUserFromRequest = (
+	request: FastifyRequest,
+): SessionPayload['user'] | null => request.session.user || null
 
-export const AccessToken = new Token<AccessTokenPayload>({
-	secret: process.env.SECRET!,
-	expiresIn: '15min',
-	algorithm: 'HS256',
-})
-
-export const RefreshToken = new Token<RefreshTokenPayload>({
-	secret: process.env.SECRET!,
-	expiresIn: '7d',
-	algorithm: 'HS256',
-})
-
-export const getRefreshToken = (request: FastifyRequest) =>
-	request.cookies['token'] || null
-
-export function clearRefreshToken(reply: FastifyReply<ServerResponse>) {
-	reply.clearCookie('token')
-}
-
-export function sendRefreshToken(
-	reply: FastifyReply<ServerResponse>,
-	refreshToken: string,
+export function setUserToRequest(
+	request: FastifyRequest,
+	user: SessionPayload['user'],
 ) {
-	reply.setCookie('token', refreshToken, { httpOnly: true, sameSite: 'lax' })
+	request.session.user = user
 }
 
 /**

@@ -4,7 +4,7 @@ import { Context } from '../context'
 export default {
 	Query: {
 		async me(_: any, args: any, { user }: Context) {
-			return user ? await User.findById(user.userId) : null
+			return user ? await User.findById(user.id) : null
 		},
 		async user(_: any, { id }: { id: string }) {
 			const user = await User.findById(id)
