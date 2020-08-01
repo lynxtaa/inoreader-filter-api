@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "cross-env": "^5.2.0",
-    "dotenv-safe": "^6.1.0",
+    "dotenv-safe": "^8.0.0",
     "ejs": "^2.6.1",
     "fastify": "^1.13.4",
     "fastify-compress": "^0.8.0",
