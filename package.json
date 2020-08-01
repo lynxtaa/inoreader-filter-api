@@ -36,7 +36,7 @@
     "mocha": "^5.2.0",
     "nodemon": "^1.18.9",
     "prettier": "^1.16.1",
-    "pretty-quick": "^1.10.0"
+    "pretty-quick": "^2.0.0"
   },
   "scripts": {
     "debug": "cross-env NODE_ENV=development nodemon server.js",
