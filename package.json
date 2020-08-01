@@ -16,7 +16,7 @@
   "dependencies": {
     "cross-env": "^5.2.0",
     "dotenv-safe": "^6.1.0",
-    "ejs": "^2.6.1",
+    "ejs": "^3.0.0",
     "fastify": "^1.13.4",
     "fastify-compress": "^0.8.0",
     "fastify-plugin": "^1.4.0",
