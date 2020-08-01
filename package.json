@@ -20,7 +20,7 @@
     "fastify": "^1.13.4",
     "fastify-compress": "^0.8.0",
     "fastify-plugin": "^1.4.0",
-    "fastify-static": "^1.1.0",
+    "fastify-static": "^3.0.0",
     "fastify-swagger": "^1.1.0",
     "http-errors": "^1.7.1",
     "lodash": "^4.17.11",
