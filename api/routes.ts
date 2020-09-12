@@ -4,7 +4,7 @@ import RuleModel, { ArticleProp, FilterType } from './models/Rule'
 
 const addRoutes: FastifyPluginCallback = (app, options, next) => {
 	app.get('/filters', async () => {
-		const rules = await RuleModel.find()
+		const rules = await RuleModel.find().collation({ locale: 'en' }).sort('ruleDef.value')
 		return { data: rules }
 	})
 

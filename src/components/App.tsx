@@ -39,7 +39,7 @@ export default function App(): JSX.Element {
 				Inoreader Filter
 			</Heading>
 			{data ? (
-				<SimpleGrid columns={2} spacing={10}>
+				<SimpleGrid columns={[1, 1, 2, 2]} spacing={10}>
 					{Object.values(ArticleProp).map((prop) => (
 						<Editor
 							key={prop}
