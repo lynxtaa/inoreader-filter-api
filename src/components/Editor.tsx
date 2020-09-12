@@ -84,7 +84,17 @@ export default function Editor({ title, rules, refetch, prop }: Props): JSX.Elem
 							name="text"
 							aria-label={`Add ${title.toLowerCase()}...`}
 							placeholder="Add..."
-							ref={register({ required: 'required field' })}
+							ref={register({
+								required: 'required field',
+								maxLength: {
+									value: 128,
+									message: 'value length should be less than 128 characters',
+								},
+								minLength: {
+									value: 2,
+									message: 'value length should be more than 1 character',
+								},
+							})}
 							pr="3rem"
 						/>
 						<InputRightElement width="3rem">

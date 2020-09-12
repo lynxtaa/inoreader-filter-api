@@ -34,7 +34,7 @@ export default model<Rule>(
 			prop: { type: String, required: true, enum: Object.values(ArticleProp) },
 			type: { type: String, required: true, enum: Object.values(FilterType) },
 			negate: { type: Boolean, default: false },
-			value: { type: String, required: true, maxlength: 128 },
+			value: { type: String, required: true, maxlength: 128, minLength: 2 },
 		},
 	}),
 )
