@@ -1,47 +1,94 @@
 {
-  "name": "inoreader-filter-api",
-  "version": "0.3.0",
-  "description": "Filter RSS Articles",
+  "name": "inoreader-filter",
+  "version": "0.4.0",
   "private": true,
-  "main": "index.js",
   "author": "Alex Kondratyuk <lynxtaa@gmail.com>",
-  "repository": "https://github.com/lynxtaa/inoreader-filter-api.git",
-  "license": "MIT",
+  "description": "Filter RSS Articles",
+  "repository": "https://github.com/lynxtaa/inoreader-filter.git",
+  "proxy": "http://localhost:4000",
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged",
-      "pre-push": "npm run lint"
+      "pre-commit": "pretty-quick --staged"
     }
   },
+  "engines": {
+    "node": "12.x"
+  },
+  "jest": {
+    "clearMocks": true
+  },
+  "prettier": {
+    "printWidth": 90,
+    "useTabs": true,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "endOfLine": "lf"
+  },
   "dependencies": {
-    "cross-env": "^5.2.0",
-    "dotenv-safe": "^6.1.0",
-    "ejs": "^2.6.1",
-    "fastify": "^1.13.4",
-    "fastify-compress": "^0.8.0",
-    "fastify-plugin": "^1.4.0",
-    "fastify-static": "^1.1.0",
-    "fastify-swagger": "^1.1.0",
-    "http-errors": "^1.7.1",
-    "lodash": "^4.17.11",
-    "node-fetch": "^2.3.0",
-    "point-of-view": "^2.1.0",
-    "sqlite": "^3.0.0"
+    "cross-env": "^7.0.2",
+    "dotenv-safe": "^8.2.0",
+    "fastify": "^3.3.0",
+    "fastify-static": "^3.2.0",
+    "http-errors": "^1.8.0",
+    "mongoose": "^5.10.4",
+    "ms": "^2.1.2",
+    "node-fetch": "^2.6.1",
+    "pino": "^6.6.0"
   },
   "devDependencies": {
-    "eslint": "^5.12.1",
-    "expect": "^23.6.0",
-    "faker": "^4.1.0",
-    "husky": "^1.3.1",
-    "mocha": "^5.2.0",
-    "nodemon": "^1.18.9",
-    "prettier": "^1.16.1",
-    "pretty-quick": "^1.10.0"
+    "@chakra-ui/core": "0.8.0",
+    "@emotion/core": "10.0.35",
+    "@emotion/styled": "10.0.27",
+    "@testing-library/jest-dom": "5.11.4",
+    "@testing-library/react": "11.0.2",
+    "@testing-library/user-event": "12.1.4",
+    "@types/http-errors": "^1.8.0",
+    "@types/jest": "24.9.1",
+    "@types/mongoose": "^5.7.36",
+    "@types/ms": "^0.7.31",
+    "@types/node": "12.12.47",
+    "@types/node-fetch": "^2.5.7",
+    "@types/pino": "^6.3.0",
+    "@types/react": "16.9.38",
+    "@types/react-dom": "16.9.8",
+    "date-fns": "^2.16.1",
+    "emotion-theming": "10.0.27",
+    "husky": "4.2.5",
+    "jest-environment-jsdom-sixteen": "^1.0.3",
+    "msw": "0.21.1",
+    "pino-pretty": "^4.2.1",
+    "prettier": "2.0.5",
+    "pretty-quick": "2.0.1",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-hook-form": "^6.8.1",
+    "react-scripts": "^3.4.3",
+    "swr": "^0.3.2",
+    "tsc-watch": "^4.2.9",
+    "typescript": "3.9.5"
   },
   "scripts": {
-    "debug": "cross-env NODE_ENV=development nodemon server.js",
-    "start": "cross-env NODE_ENV=production node server.js",
-    "lint": "eslint *.js db routes inoreader public utils",
-    "test": "mocha './{,!(node_modules)/**}/*.test.js'"
+    "start": "cross-env NODE_ENV=production node dist/index.js",
+    "lint": "eslint --ext .ts,.js api src",
+    "web:dev": "react-scripts start",
+    "server:dev": "cross-env NODE_ENV=development tsc-watch --project api/tsconfig.json --onSuccess \"node dist/index.js\"",
+    "build": "npm run build:server && npm run build:web",
+    "build:server": "tsc --project api/tsconfig.json",
+    "build:web": "react-scripts build",
+    "test": "react-scripts test --env jest-environment-jsdom-sixteen",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

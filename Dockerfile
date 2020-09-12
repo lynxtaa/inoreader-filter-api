@@ -1,13 +1,22 @@
-FROM arm32v7/node:lts
+FROM node:12.18.3 as builder
 
 WORKDIR /server
 
 COPY package*.json ./
 
-RUN npm install --production
+RUN npm ci --silent
 
 COPY . .
 
-CMD [ "npm", "start" ]
+RUN npm run build \
+  && npm prune --production \
+  && npm cache clean --force \
+  && rm -rf ./src ./api
 
-EXPOSE 7000
+FROM node:12.18.3-alpine
+
+WORKDIR /server
+
+COPY --from=builder . .
+
+CMD ["npm", "start"]

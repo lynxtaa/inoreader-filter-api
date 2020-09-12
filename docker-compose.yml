@@ -2,17 +2,10 @@ version: '3.6'
 
 services:
   inoreader-filter:
-    image: inoreader-filter:latest
-    volumes:
-      - /home/pi/inoreader-filter.sqlite:/server/db.sqlite
     ports:
-      - 8080:8080
-    environment:
-      PORT: 8080
-      CUSTOM_ENV_PATH: /run/secrets/inoreader-filter-secrets
-    secrets:
-      - inoreader-filter-secrets
-
-secrets:
-  inoreader-filter-secrets:
-    external: true
+      - 4000:4000
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
