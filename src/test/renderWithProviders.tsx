@@ -1,4 +1,4 @@
-import { CSSReset, ThemeProvider } from '@chakra-ui/core'
+import { CSSReset, ThemeProvider, ColorModeProvider } from '@chakra-ui/core'
 import { render as _render, RenderOptions, RenderResult } from '@testing-library/react'
 import React from 'react'
 
@@ -12,7 +12,7 @@ export default function renderWithProviders(
 		<React.StrictMode>
 			<ThemeProvider theme={theme}>
 				<CSSReset />
-				{ui}
+				<ColorModeProvider>{ui}</ColorModeProvider>
 			</ThemeProvider>
 		</React.StrictMode>,
 		options,

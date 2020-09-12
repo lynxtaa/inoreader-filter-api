@@ -22,15 +22,13 @@ export default function ConfirmModal({
 	return (
 		<Modal isOpen onClose={onCancel}>
 			<ModalOverlay />
-			<ModalContent>
+			<ModalContent borderRadius="0.4rem">
 				<ModalHeader>{message}</ModalHeader>
 				<ModalFooter>
-					<Button variant="ghost" mr={3} onClick={onCancel}>
-						No
-					</Button>
-					<Button variantColor="blue" onClick={onConfirm}>
+					<Button variantColor="blue" mr={3} onClick={onConfirm}>
 						Yes
 					</Button>
+					<Button onClick={onCancel}>No</Button>
 				</ModalFooter>
 			</ModalContent>
 		</Modal>
