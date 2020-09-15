@@ -16,9 +16,9 @@ import React, { useState } from 'react'
 import { format as formatDate, parseISO } from 'date-fns'
 import fetchApi from './utils/fetchApi'
 import { useForm } from 'react-hook-form'
-import { ArticleProp, FilterType, RuleData } from '../types'
 import ConfirmModal from './ConfirmModal'
 import useErrorHandler from '../hooks/useErrorHandler'
+import { RuleData, ArticleProp, FilterType } from '../../api/types'
 
 type FormValues = {
 	text: string

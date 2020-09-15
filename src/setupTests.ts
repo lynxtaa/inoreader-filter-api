@@ -6,6 +6,11 @@ import '@testing-library/jest-dom/extend-expect'
 
 import { server } from './test/server'
 
+// Solves this error when testing modals:
+// enableBodyScroll unsuccessful - targetElement must be provided
+// when calling enableBodyScroll on IOS devices.
+jest.mock('body-scroll-lock')
+
 beforeAll(() =>
 	server.listen({
 		onUnhandledRequest: 'warn',

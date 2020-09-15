@@ -2,9 +2,9 @@ import { screen, waitForElementToBeRemoved } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 
+import { RuleData, ArticleProp, FilterType } from '../../api/types'
 import renderWithProviders from '../test/renderWithProviders'
 import { rest, server } from '../test/server'
-import { ArticleProp, FilterType, RuleData } from '../types'
 
 import App from './App'
 
@@ -69,7 +69,7 @@ beforeEach(() => {
 })
 
 it('shows list of rules', async () => {
-	renderWithProviders(<App />)
+	renderWithProviders(<App initialData={{ data: [] }} />)
 
 	const firstItem = await screen.findByText('Trump')
 	expect(firstItem).toHaveAttribute(
@@ -82,7 +82,7 @@ it('shows list of rules', async () => {
 })
 
 it('adds new rule', async () => {
-	renderWithProviders(<App />)
+	renderWithProviders(<App initialData={{ data: [] }} />)
 
 	expect(await screen.findByText('Trump')).toBeInTheDocument()
 
@@ -93,7 +93,7 @@ it('adds new rule', async () => {
 })
 
 it('removes existing rule', async () => {
-	renderWithProviders(<App />)
+	renderWithProviders(<App initialData={{ data: [] }} />)
 
 	const listItem = await screen.findByText('Trump')
 

@@ -1,10 +1,12 @@
 import { Server, IncomingMessage, ServerResponse } from 'http'
 import Fastify, { FastifyInstance } from 'fastify'
+import fastifyNextjs from 'fastify-nextjs'
 import pino, { LevelWithSilent, Logger } from 'pino'
 
 import routes from './routes'
-import fastifyStatic from 'fastify-static'
-import { join } from 'path'
+import inofilter from './lib/inofilter'
+import ms from 'ms'
+import connectMongo from './connectMongo'
 
 export default function createApp({
 	logLevel,
@@ -23,9 +25,23 @@ export default function createApp({
 		}),
 	})
 
-	fastify.register(fastifyStatic, {
-		root: join(__dirname, '../build'),
+	inofilter.setLogger(fastify.log)
+
+	fastify.addHook('onClose', (instance, done) => {
+		inofilter.stop()
+		done()
 	})
+
+	fastify.addHook('onReady', async () => {
+		await connectMongo()
+		inofilter.runByInterval(ms(process.env.INTERVAL || '15min'))
+	})
+
+	fastify
+		.register(fastifyNextjs, { dev: process.env.NODE_ENV !== 'production' })
+		.after(() => {
+			fastify.next('/')
+		})
 
 	fastify.register(routes, { prefix: '/api' })
 

@@ -1,14 +1,5 @@
-import { Schema, Document, model } from 'mongoose'
-
-export enum ArticleProp {
-	Href = 'href',
-	Title = 'title',
-}
-
-export enum FilterType {
-	Contains = 'contains',
-	Equal = 'equal',
-}
+import { Schema, Document, model, models, Model } from 'mongoose'
+import { ArticleProp, FilterType } from '../types'
 
 export interface Rule extends Document {
 	createdAt: Date
@@ -23,18 +14,22 @@ export interface Rule extends Document {
 	}
 }
 
-export default model<Rule>(
-	'Rule',
-	new Schema({
-		createdAt: { type: Date, required: true },
-		isActive: { type: Boolean, required: true, default: true },
-		hits: { type: Number, default: 0 },
-		lastHitAt: { type: Date, default: null },
-		ruleDef: {
-			prop: { type: String, required: true, enum: Object.values(ArticleProp) },
-			type: { type: String, required: true, enum: Object.values(FilterType) },
-			negate: { type: Boolean, default: false },
-			value: { type: String, required: true, maxlength: 128, minLength: 2 },
-		},
-	}),
-)
+const RuleModel: Model<Rule> =
+	models?.Rule ||
+	model<Rule>(
+		'Rule',
+		new Schema({
+			createdAt: { type: Date, required: true },
+			isActive: { type: Boolean, required: true, default: true },
+			hits: { type: Number, default: 0 },
+			lastHitAt: { type: Date, default: null },
+			ruleDef: {
+				prop: { type: String, required: true, enum: Object.values(ArticleProp) },
+				type: { type: String, required: true, enum: Object.values(FilterType) },
+				negate: { type: Boolean, default: false },
+				value: { type: String, required: true, maxlength: 128, minLength: 2 },
+			},
+		}),
+	)
+
+export default RuleModel

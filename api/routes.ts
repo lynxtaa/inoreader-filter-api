@@ -1,8 +1,23 @@
 import { FastifyPluginCallback } from 'fastify'
+import inofilter from './lib/inofilter'
 
-import RuleModel, { ArticleProp, FilterType } from './models/Rule'
+import RuleModel from './models/Rule'
+import { ArticleProp, FilterType } from './types'
 
 const addRoutes: FastifyPluginCallback = (app, options, next) => {
+	app.get('/status', async () => {
+		const status = inofilter.getStatus()
+
+		const rules = await RuleModel.find({}, ['hits'])
+
+		let totalHits = 0
+		for (const rule of rules) {
+			totalHits += rule.hits
+		}
+
+		return { ...status, totalHits }
+	})
+
 	app.get('/filters', async () => {
 		const rules = await RuleModel.find().collation({ locale: 'en' }).sort('ruleDef.value')
 		return { data: rules }

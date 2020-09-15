@@ -1,4 +1,5 @@
-import { Rule, FilterType } from '../../models/Rule'
+import { Rule } from '../../models/Rule'
+import { FilterType } from '../../types'
 
 function matchByType(text: string, { ruleDef }: Rule) {
 	switch (ruleDef.type) {
