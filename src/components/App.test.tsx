@@ -2,7 +2,7 @@ import { screen, waitForElementToBeRemoved } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 
-import { RuleData, ArticleProp, FilterType } from '../../api/types'
+import { RuleData, ArticleProp, FilterType, AppStatus } from '../../api/types'
 import renderWithProviders from '../test/renderWithProviders'
 import { rest, server } from '../test/server'
 
@@ -39,6 +39,14 @@ beforeEach(() => {
 	]
 
 	server.use(
+		rest.get('/api/status', (req, res, ctx) => {
+			const data: AppStatus = {
+				latestRunAt: new Date('2020-05-20').toISOString(),
+				currentInterval: 15000,
+			}
+			return res(ctx.json(data))
+		}),
+
 		rest.get('/api/filters', (req, res, ctx) => res(ctx.json({ data }))),
 
 		rest.post('/api/filters', (req, res, ctx) => {
@@ -79,6 +87,13 @@ it('shows list of rules', async () => {
 
 	const secondItem = await screen.findByText('/r/sport')
 	expect(secondItem).not.toHaveAttribute('title')
+})
+
+it('shows status bar', async () => {
+	renderWithProviders(<App initialData={{ data: [] }} />)
+
+	expect(await screen.findByText(/Total Hits: 10/i)).toBeInTheDocument()
+	expect(await screen.findByText(/Latest run: .* ago/i)).toBeInTheDocument()
 })
 
 it('adds new rule', async () => {

@@ -10,14 +10,10 @@ const addRoutes: FastifyPluginCallback = (app, options, next) => {
 		async (): Promise<AppStatus> => {
 			const { latestRunAt, currentInterval } = inofilter.getStatus()
 
-			const rules = await RuleModel.find({}, ['hits'])
-
-			let totalHits = 0
-			for (const rule of rules) {
-				totalHits += rule.hits
+			return {
+				latestRunAt: latestRunAt ? latestRunAt.toISOString() : null,
+				currentInterval,
 			}
-
-			return { latestRunAt, currentInterval, totalHits }
 		},
 	)
 

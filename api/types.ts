@@ -1,7 +1,6 @@
 export type AppStatus = {
-	latestRunAt: Date | null
+	latestRunAt: string | null
 	currentInterval: number | null
-	totalHits: number
 }
 
 export enum ArticleProp {

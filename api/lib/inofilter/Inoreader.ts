@@ -135,14 +135,15 @@ export default class Inoreader {
 					},
 				)
 
-				this.status.latestRunAt = new Date()
-
 				this.logger.info(
 					`Marked as read:\n${articles.map((article) => article.title).join('\n')}`,
 				)
 			}
+
+			this.status.latestRunAt = new Date()
 		} catch (err) {
 			this.logger.error(err)
+		} finally {
 		}
 	}
 

@@ -1,4 +1,4 @@
-import { ThemeProvider, CSSReset, theme, DarkMode } from '@chakra-ui/core'
+import { ThemeProvider, CSSReset, DarkMode } from '@chakra-ui/core'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import React from 'react'
@@ -8,6 +8,7 @@ import App from '../src/components/App'
 import connectMongo from '../api/connectMongo'
 import RuleModel from '../api/models/Rule'
 import { RuleData } from '../api/types'
+import theme from '../src/theme'
 
 type Props = {
 	initialData: { data: RuleData[] }
