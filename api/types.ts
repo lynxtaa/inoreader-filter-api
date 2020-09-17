@@ -1,3 +1,9 @@
+export type AppStatus = {
+	latestRunAt: Date | null
+	currentInterval: number | null
+	totalHits: number
+}
+
 export enum ArticleProp {
 	Href = 'href',
 	Title = 'title',

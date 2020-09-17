@@ -36,4 +36,6 @@ jobs:
         uses: codecov/codecov-action@v1
 
       - name: Build
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
         run: npm run build

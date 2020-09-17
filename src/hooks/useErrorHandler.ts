@@ -6,6 +6,7 @@ export default function useErrorHandler(): (message?: string) => (error: Error) 
 
 	const errorHandler = useCallback(
 		(message?: string) => (error: Error) => {
+			// eslint-disable-next-line no-console
 			console.error(error)
 
 			toast({

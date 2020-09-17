@@ -101,7 +101,6 @@ export default class Inoreader {
 	}
 
 	private async run() {
-		console.log('hello')
 		try {
 			const rules = await RuleModel.find()
 
