@@ -33,6 +33,7 @@
     "http-errors": "^1.8.0",
     "mongoose": "5.10.4",
     "ms": "^2.1.2",
+    "next": "^9.5.3",
     "node-fetch": "^2.6.1",
     "pino": "^6.6.0"
   },
@@ -69,7 +70,6 @@
     "is-ci-cli": "^2.1.2",
     "jest": "^26.4.2",
     "msw": "0.21.1",
-    "next": "^9.5.3",
     "pino-pretty": "^4.2.1",
     "prettier": "2.1.1",
     "pretty-quick": "3.0.2",

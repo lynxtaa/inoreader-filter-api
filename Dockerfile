@@ -11,6 +11,8 @@ COPY . .
 ARG MONGO_URI
 ENV MONGO_URI=$MONGO_URI
 
+ENV NEXT_TELEMETRY_DISABLED=1
+
 RUN npm run build \
   && npm prune --production \
   && rm -rf ./src ./api
