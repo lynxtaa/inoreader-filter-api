@@ -25,8 +25,13 @@
     "endOfLine": "lf"
   },
   "dependencies": {
+    "@chakra-ui/core": "0.8.0",
+    "@emotion/core": "10.0.35",
+    "@emotion/styled": "10.0.27",
     "cross-env": "^7.0.2",
+    "date-fns": "^2.16.1",
     "dotenv-safe": "^8.2.0",
+    "emotion-theming": "10.0.27",
     "fastify": "^3.3.0",
     "fastify-nextjs": "^5.0.4",
     "fastify-static": "^3.2.0",
@@ -37,12 +42,11 @@
     "node-fetch": "^2.6.1",
     "pino": "^6.6.0",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "react-hook-form": "^6.8.1",
+    "swr": "^0.3.2"
   },
   "devDependencies": {
-    "@chakra-ui/core": "0.8.0",
-    "@emotion/core": "10.0.35",
-    "@emotion/styled": "10.0.27",
     "@testing-library/jest-dom": "5.11.4",
     "@testing-library/react": "11.0.2",
     "@testing-library/user-event": "12.1.4",
@@ -59,8 +63,6 @@
     "@typescript-eslint/parser": "^2.34.0",
     "babel-eslint": "^10.1.0",
     "concurrently": "^5.3.0",
-    "date-fns": "^2.16.1",
-    "emotion-theming": "10.0.27",
     "eslint": "^6.8.0",
     "eslint-config-react-app": "^5.2.1",
     "eslint-plugin-flowtype": "^4.7.0",
@@ -75,8 +77,6 @@
     "pino-pretty": "^4.2.1",
     "prettier": "2.1.1",
     "pretty-quick": "3.0.2",
-    "react-hook-form": "^6.8.1",
-    "swr": "^0.3.2",
     "tsc-watch": "^4.2.9",
     "typescript": "3.9.5",
     "whatwg-fetch": "^3.4.1"
