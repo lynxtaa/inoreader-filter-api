@@ -35,7 +35,9 @@
     "ms": "^2.1.2",
     "next": "^9.5.3",
     "node-fetch": "^2.6.1",
-    "pino": "^6.6.0"
+    "pino": "^6.6.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
   },
   "devDependencies": {
     "@chakra-ui/core": "0.8.0",
@@ -73,8 +75,6 @@
     "pino-pretty": "^4.2.1",
     "prettier": "2.1.1",
     "pretty-quick": "3.0.2",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
     "react-hook-form": "^6.8.1",
     "swr": "^0.3.2",
     "tsc-watch": "^4.2.9",
