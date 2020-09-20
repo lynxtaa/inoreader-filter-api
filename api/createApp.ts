@@ -1,6 +1,8 @@
 import { Server, IncomingMessage, ServerResponse } from 'http'
 import Fastify, { FastifyInstance } from 'fastify'
 import fastifyNextjs from 'fastify-nextjs'
+import fastifyStatic from 'fastify-static'
+import path from 'path'
 import pino, { LevelWithSilent, Logger } from 'pino'
 
 import routes from './routes'
@@ -35,6 +37,10 @@ export default function createApp({
 	fastify.addHook('onReady', async () => {
 		await connectMongo()
 		inofilter.runByInterval(ms(process.env.INTERVAL || '15min'))
+	})
+
+	fastify.register(fastifyStatic, {
+		root: path.join(__dirname, '../public'),
 	})
 
 	fastify
