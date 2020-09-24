@@ -2,6 +2,7 @@ import {
 	Box,
 	Heading,
 	List,
+	ListIcon,
 	ListItem,
 	FormControl,
 	Input,
@@ -32,7 +33,7 @@ type Props = {
 }
 
 export default function Editor({ title, rules, refetch, prop }: Props): JSX.Element {
-	const [idToDelete, setIdToDelete] = useState<string | null>(null)
+	const [ruleToDelete, setRuleToDelete] = useState<RuleData | null>(null)
 
 	const errorHandler = useErrorHandler()
 
@@ -47,7 +48,7 @@ export default function Editor({ title, rules, refetch, prop }: Props): JSX.Elem
 		fetchApi(`/api/filters/${ruleId}`, { method: 'DELETE' })
 			.catch(errorHandler('Unable to delete filter'))
 			.finally(() => {
-				setIdToDelete(null)
+				setRuleToDelete(null)
 				refetch()
 			})
 	}
@@ -57,11 +58,11 @@ export default function Editor({ title, rules, refetch, prop }: Props): JSX.Elem
 			<Heading size="xl" fontWeight="light" marginBottom={4}>
 				{title}
 			</Heading>
-			{idToDelete !== null && (
+			{ruleToDelete && (
 				<ConfirmModal
-					message="Delete selected rule?"
-					onCancel={() => setIdToDelete(null)}
-					onConfirm={() => handleDelete(idToDelete)}
+					message={`Delete selected rule «${ruleToDelete.ruleDef.value}» ?`}
+					onCancel={() => setRuleToDelete(null)}
+					onConfirm={() => handleDelete(ruleToDelete._id)}
 				/>
 			)}
 			<Box
@@ -112,11 +113,24 @@ export default function Editor({ title, rules, refetch, prop }: Props): JSX.Elem
 					<FormErrorMessage>{errors.text?.message}</FormErrorMessage>
 				</FormControl>
 			</Box>
-			<List styleType="disc">
+			<List spacing={4}>
 				{rules.map((el, i) => (
-					<ListItem key={el._id} marginTop={i === 0 ? 0 : 4} fontSize="lg">
+					<ListItem key={el._id} fontSize="lg" display="flex" alignItems="center">
+						<Button
+							aria-label={`Delete ${el.ruleDef.value}`}
+							title="Delete"
+							variant="outline"
+							variantColor="red"
+							size="xs"
+							mr={4}
+							onClick={() => setRuleToDelete(el)}
+						>
+							×
+						</Button>
 						<Text
 							as="span"
+							opacity={el.hits > 0 ? 1 : 0.6}
+							mr={1}
 							title={
 								el.lastHitAt
 									? `Last hit at: ${formatDate(
@@ -129,21 +143,8 @@ export default function Editor({ title, rules, refetch, prop }: Props): JSX.Elem
 							{el.ruleDef.value}
 						</Text>
 						<Text as="sup" color="gray.500">
-							{' '}
 							{el.hits}
 						</Text>
-						<Button
-							aria-label={`Delete ${el.ruleDef.value}`}
-							title="Delete"
-							variant="outline"
-							variantColor="red"
-							size="xs"
-							float="right"
-							ml={3}
-							onClick={() => setIdToDelete(el._id)}
-						>
-							×
-						</Button>
 					</ListItem>
 				))}
 			</List>

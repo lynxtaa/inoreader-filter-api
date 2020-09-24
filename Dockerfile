@@ -1,6 +1,6 @@
-FROM node:12.18.3 as builder
+FROM node:12.18.3-alpine
 
-WORKDIR /build
+WORKDIR /server
 
 COPY package*.json ./
 
@@ -15,12 +15,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN npm run build \
   && npm prune --production \
-  && rm -rf ./src ./api
-
-FROM node:12.18.3-alpine
-
-WORKDIR /server
-
-COPY --from=builder /build .
+  && rm -rf ./src ./api \
+  && npm cache clean --force
 
 CMD ["npm", "start"]
