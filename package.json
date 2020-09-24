@@ -1,6 +1,6 @@
 {
   "name": "inoreader-filter",
-  "version": "0.5.3",
+  "version": "0.6.0",
   "private": true,
   "author": "Alex Kondratyuk <lynxtaa@gmail.com>",
   "description": "Filter RSS Articles",
