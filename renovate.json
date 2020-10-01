@@ -11,8 +11,8 @@
 		},
 		{
 			"depTypeList": ["dependencies"],
-			"updateTypes": ["patch"],
-			"groupName": "dependencies (patch)"
+			"updateTypes": ["patch", "minor"],
+			"groupName": "dependencies (non-major)"
 		}
 	]
 }
