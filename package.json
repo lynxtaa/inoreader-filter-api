@@ -36,7 +36,7 @@
     "fastify-nextjs": "^5.0.4",
     "fastify-static": "^3.2.0",
     "http-errors": "^1.8.0",
-    "mongoose": "5.10.4",
+    "mongoose": "5.10.7",
     "ms": "^2.1.2",
     "next": "^9.5.3",
     "node-fetch": "^2.6.1",
