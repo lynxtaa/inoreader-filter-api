@@ -1,4 +1,3 @@
-import React from 'react'
 import {
 	Button,
 	Modal,
@@ -7,6 +6,7 @@ import {
 	ModalFooter,
 	ModalHeader,
 } from '@chakra-ui/core'
+import React from 'react'
 
 type Props = {
 	message: string

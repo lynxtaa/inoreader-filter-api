@@ -1,6 +1,6 @@
 import { Box, BoxProps, Text } from '@chakra-ui/core'
-import React from 'react'
 import { formatDistanceToNow, parseISO } from 'date-fns'
+
 import { AppStatus as AppStatusType } from '../../api/types'
 import useFetch from '../hooks/useFetch'
 

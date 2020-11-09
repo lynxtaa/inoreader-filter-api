@@ -1,4 +1,3 @@
-import React from 'react'
 import { IconButton, useColorMode, IconButtonProps } from '@chakra-ui/core'
 
 type Props = Omit<IconButtonProps, 'children' | 'aria-label'>

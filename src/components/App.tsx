@@ -1,11 +1,13 @@
 import { SimpleGrid, Heading, Spinner, Flex } from '@chakra-ui/core'
-import React, { useEffect } from 'react'
-import Editor from './Editor'
-import useErrorHandler from '../hooks/useErrorHandler'
-import ColorModeToggle from './ColorModeToggle'
+import { useEffect } from 'react'
+
 import { ArticleProp, RuleData } from '../../api/types'
-import AppStatus from './AppStatus'
+import useErrorHandler from '../hooks/useErrorHandler'
 import useFetch from '../hooks/useFetch'
+
+import AppStatus from './AppStatus'
+import ColorModeToggle from './ColorModeToggle'
+import Editor from './Editor'
 
 const titles: { [key in ArticleProp]: string } = {
 	[ArticleProp.Href]: 'Hrefs',

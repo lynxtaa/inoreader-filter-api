@@ -1,35 +1,60 @@
-import { Schema, Document, model, models, Model } from 'mongoose'
+import {
+	prop,
+	modelOptions,
+	getModelForClass,
+	defaultClasses,
+} from '@typegoose/typegoose'
+import { models } from 'mongoose'
+
 import { ArticleProp, FilterType } from '../types'
 
-export interface Rule extends Document {
-	createdAt: Date
-	hits: number
-	lastHitAt: Date | null
-	isActive: boolean
-	ruleDef: {
-		prop: ArticleProp
-		type: FilterType
-		negate: boolean
-		value: string
-	}
+@modelOptions({ schemaOptions: { _id: false } })
+class RuleDef {
+	@prop({ enum: ArticleProp, type: String })
+	prop!: ArticleProp
+
+	@prop({ enum: FilterType, type: String })
+	type!: FilterType
+
+	@prop({ default: false })
+	negate?: boolean
+
+	@prop({ maxlength: 128, minlength: 2 })
+	value!: string
 }
 
-const RuleModel: Model<Rule> =
-	models?.Rule ||
-	model<Rule>(
-		'Rule',
-		new Schema({
-			createdAt: { type: Date, required: true },
-			isActive: { type: Boolean, required: true, default: true },
-			hits: { type: Number, default: 0 },
-			lastHitAt: { type: Date, default: null },
-			ruleDef: {
-				prop: { type: String, required: true, enum: Object.values(ArticleProp) },
-				type: { type: String, required: true, enum: Object.values(FilterType) },
-				negate: { type: Boolean, default: false },
-				value: { type: String, required: true, maxlength: 128, minLength: 2 },
+@modelOptions({
+	schemaOptions: {
+		toJSON: {
+			transform(document, returnedObject) {
+				returnedObject.createdAt = returnedObject.createdAt.toISOString()
+				if (returnedObject.lastHitAt) {
+					returnedObject.lastHitAt = returnedObject.lastHitAt.toISOString()
+				}
+				returnedObject._id = returnedObject._id.toString()
+				delete returnedObject.ruleDef._v
+				delete returnedObject._v
 			},
-		}),
-	)
+		},
+	},
+})
+export class Rule extends defaultClasses.Base {
+	@prop()
+	createdAt!: Date
 
-export default RuleModel
+	@prop({ default: 0 })
+	hits!: number
+
+	@prop()
+	lastHitAt?: Date
+
+	@prop()
+	isActive!: boolean
+
+	@prop()
+	ruleDef!: RuleDef
+}
+
+const ModelForClass = getModelForClass(Rule)
+
+export const RuleModel: typeof ModelForClass = models?.Rule || ModelForClass

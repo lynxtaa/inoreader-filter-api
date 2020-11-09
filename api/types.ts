@@ -22,7 +22,7 @@ export type RuleData = {
 	ruleDef: {
 		prop: ArticleProp
 		type: FilterType
-		negate: boolean
+		negate?: boolean
 		value: string
 	}
 }

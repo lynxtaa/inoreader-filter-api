@@ -1,13 +1,13 @@
 import { ThemeProvider, CSSReset, DarkMode } from '@chakra-ui/core'
+import ms from 'ms'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
-import React from 'react'
-import ms from 'ms'
+import { StrictMode } from 'react'
 
-import App from '../src/components/App'
 import connectMongo from '../api/connectMongo'
-import RuleModel from '../api/models/Rule'
+import { RuleModel } from '../api/models/Rule'
 import { RuleData } from '../api/types'
+import App from '../src/components/App'
 import theme from '../src/theme'
 
 type Props = {
@@ -16,7 +16,7 @@ type Props = {
 
 export default function Home({ initialData }: Props): JSX.Element {
 	return (
-		<React.StrictMode>
+		<StrictMode>
 			<ThemeProvider theme={theme}>
 				<DarkMode>
 					<CSSReset />
@@ -36,7 +36,7 @@ export default function Home({ initialData }: Props): JSX.Element {
 					<App initialData={initialData} />
 				</DarkMode>
 			</ThemeProvider>
-		</React.StrictMode>
+		</StrictMode>
 	)
 }
 
@@ -46,19 +46,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	const rules = await RuleModel.find().collation({ locale: 'en' }).sort('ruleDef.value')
 
 	const initialData = {
-		data: rules.map((rule) => ({
-			_id: String(rule._id),
-			createdAt: rule.createdAt.toISOString(),
-			isActive: rule.isActive,
-			lastHitAt: rule.lastHitAt ? rule.lastHitAt.toISOString() : null,
-			hits: rule.hits,
-			ruleDef: {
-				prop: rule.ruleDef.prop,
-				type: rule.ruleDef.type,
-				negate: rule.ruleDef.negate,
-				value: rule.ruleDef.value,
-			},
-		})),
+		data: rules.map((rule) => rule.toJSON()),
 	}
 
 	return {

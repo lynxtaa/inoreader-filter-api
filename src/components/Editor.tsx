@@ -2,7 +2,6 @@ import {
 	Box,
 	Heading,
 	List,
-	ListIcon,
 	ListItem,
 	FormControl,
 	Input,
@@ -13,13 +12,15 @@ import {
 	InputGroup,
 	InputRightElement,
 } from '@chakra-ui/core'
-import React, { useState } from 'react'
 import { format as formatDate, parseISO } from 'date-fns'
-import fetchApi from './utils/fetchApi'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import ConfirmModal from './ConfirmModal'
-import useErrorHandler from '../hooks/useErrorHandler'
+
 import { RuleData, ArticleProp, FilterType } from '../../api/types'
+import useErrorHandler from '../hooks/useErrorHandler'
+
+import ConfirmModal from './ConfirmModal'
+import fetchApi from './utils/fetchApi'
 
 type FormValues = {
 	text: string

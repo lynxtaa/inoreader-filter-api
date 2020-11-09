@@ -1,14 +1,15 @@
 import { Server, IncomingMessage, ServerResponse } from 'http'
+import path from 'path'
+
 import Fastify, { FastifyInstance } from 'fastify'
 import fastifyNextjs from 'fastify-nextjs'
 import fastifyStatic from 'fastify-static'
-import path from 'path'
+import ms from 'ms'
 import pino, { LevelWithSilent, Logger } from 'pino'
 
-import routes from './routes'
-import inofilter from './lib/inofilter'
-import ms from 'ms'
 import connectMongo from './connectMongo'
+import inofilter from './lib/inofilter'
+import routes from './routes'
 
 export default function createApp({
 	logLevel,

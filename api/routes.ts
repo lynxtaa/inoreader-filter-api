@@ -1,7 +1,7 @@
 import { FastifyPluginCallback } from 'fastify'
-import inofilter from './lib/inofilter'
 
-import RuleModel from './models/Rule'
+import inofilter from './lib/inofilter'
+import { RuleModel } from './models/Rule'
 import { AppStatus, ArticleProp, FilterType } from './types'
 
 const addRoutes: FastifyPluginCallback = (app, options, next) => {
@@ -62,7 +62,6 @@ const addRoutes: FastifyPluginCallback = (app, options, next) => {
 				ruleDef,
 				createdAt: new Date(),
 				hits: 0,
-				lastHitAt: null,
 			})
 
 			return { data: newRule }
