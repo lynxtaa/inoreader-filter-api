@@ -53,7 +53,7 @@
     "@testing-library/react": "11.2.2",
     "@testing-library/user-event": "12.3.0",
     "@types/http-errors": "1.8.0",
-    "@types/jest": "26.0.15",
+    "@types/jest": "26.0.16",
     "@types/mongoose": "5.10.1",
     "@types/ms": "0.7.31",
     "@types/node": "12.19.8",
