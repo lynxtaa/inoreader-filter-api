@@ -1,4 +1,4 @@
-import { useToast } from '@chakra-ui/core'
+import { useToast } from '@chakra-ui/react'
 import { useCallback } from 'react'
 
 export default function useErrorHandler(): (message?: string) => (error: Error) => void {

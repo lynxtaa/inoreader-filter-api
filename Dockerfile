@@ -1,10 +1,10 @@
-FROM node:12.19.0-alpine
+FROM node:15.6.0-alpine
 
 WORKDIR /server
 
 COPY package*.json ./
 
-RUN npm ci --silent
+RUN npm ci --legacy-peer-deps
 
 COPY . .
 

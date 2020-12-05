@@ -5,7 +5,7 @@ import {
 	ModalContent,
 	ModalFooter,
 	ModalHeader,
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 import React from 'react'
 
 type Props = {
@@ -25,7 +25,7 @@ export default function ConfirmModal({
 			<ModalContent borderRadius="0.4rem">
 				<ModalHeader>{message}</ModalHeader>
 				<ModalFooter>
-					<Button variantColor="blue" mr={3} onClick={onConfirm}>
+					<Button colorScheme="blue" mr={3} onClick={onConfirm}>
 						Yes
 					</Button>
 					<Button onClick={onCancel}>No</Button>

@@ -1,4 +1,4 @@
-import { SimpleGrid, Heading, Spinner, Flex } from '@chakra-ui/core'
+import { SimpleGrid, Heading, Spinner, Flex } from '@chakra-ui/react'
 import { useEffect } from 'react'
 
 import { ArticleProp, RuleData } from '../../api/types'

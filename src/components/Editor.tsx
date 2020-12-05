@@ -1,3 +1,4 @@
+import { PlusSquareIcon } from '@chakra-ui/icons'
 import {
 	Box,
 	Heading,
@@ -11,7 +12,7 @@ import {
 	IconButton,
 	InputGroup,
 	InputRightElement,
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 import { format as formatDate, parseISO } from 'date-fns'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -102,7 +103,7 @@ export default function Editor({ title, rules, refetch, prop }: Props): JSX.Elem
 						<InputRightElement width="3rem">
 							<IconButton
 								type="submit"
-								icon="plus-square"
+								icon={<PlusSquareIcon />}
 								aria-label={`Add ${title.toLowerCase()}...`}
 								isLoading={isSubmitting}
 								isDisabled={isSubmitting}
@@ -121,7 +122,7 @@ export default function Editor({ title, rules, refetch, prop }: Props): JSX.Elem
 							aria-label={`Delete ${el.ruleDef.value}`}
 							title="Delete"
 							variant="outline"
-							variantColor="red"
+							colorScheme="red"
 							size="xs"
 							mr={4}
 							onClick={() => setRuleToDelete(el)}

@@ -1,4 +1,5 @@
-import { IconButton, useColorMode, IconButtonProps } from '@chakra-ui/core'
+import { SunIcon, MoonIcon } from '@chakra-ui/icons'
+import { IconButton, useColorMode, IconButtonProps } from '@chakra-ui/react'
 
 type Props = Omit<IconButtonProps, 'children' | 'aria-label'>
 
@@ -10,7 +11,7 @@ export default function ColorModeToggle(props: Props): JSX.Element {
 			onClick={toggleColorMode}
 			{...props}
 			aria-label="Toggle color mode"
-			icon={colorMode === 'light' ? 'sun' : 'moon'}
+			icon={colorMode === 'light' ? <SunIcon /> : <MoonIcon />}
 		/>
 	)
 }

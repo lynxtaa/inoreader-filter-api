@@ -1,4 +1,4 @@
-import { Box, BoxProps, Text } from '@chakra-ui/core'
+import { Box, BoxProps, Text } from '@chakra-ui/react'
 import { formatDistanceToNow, parseISO } from 'date-fns'
 
 import { AppStatus as AppStatusType } from '../../api/types'
