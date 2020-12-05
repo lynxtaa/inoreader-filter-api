@@ -46,7 +46,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	const rules = await RuleModel.find().collation({ locale: 'en' }).sort('ruleDef.value')
 
 	const initialData = {
-		data: rules.map((rule) => rule.toJSON()),
+		data: rules.map((rule) => rule.toJSON() as RuleData),
 	}
 
 	return {
