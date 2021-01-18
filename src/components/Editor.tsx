@@ -13,15 +13,16 @@ import {
 	InputGroup,
 	InputRightElement,
 } from '@chakra-ui/react'
+import axios from 'axios'
 import { format as formatDate, parseISO } from 'date-fns'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useMutation, useQueryClient } from 'react-query'
 
 import { RuleData, ArticleProp, FilterType } from '../../api/types'
 import useErrorHandler from '../hooks/useErrorHandler'
 
 import ConfirmModal from './ConfirmModal'
-import fetchApi from './utils/fetchApi'
 
 type FormValues = {
 	text: string
@@ -30,12 +31,13 @@ type FormValues = {
 type Props = {
 	title: string
 	rules: RuleData[]
-	refetch: () => void
 	prop: ArticleProp
 }
 
-export default function Editor({ title, rules, refetch, prop }: Props): JSX.Element {
+export default function Editor({ title, rules, prop }: Props): JSX.Element {
 	const [ruleToDelete, setRuleToDelete] = useState<RuleData | null>(null)
+
+	const queryClient = useQueryClient()
 
 	const errorHandler = useErrorHandler()
 
@@ -46,14 +48,36 @@ export default function Editor({ title, rules, refetch, prop }: Props): JSX.Elem
 
 	const { isSubmitting } = formState
 
-	function handleDelete(ruleId: string) {
-		fetchApi(`/api/filters/${ruleId}`, { method: 'DELETE' })
-			.catch(errorHandler('Unable to delete filter'))
-			.finally(() => {
+	const deleteMutation = useMutation(
+		(ruleId: string) => axios.delete(`/api/filters/${ruleId}`),
+		{
+			onError(error) {
+				errorHandler('Unable to delete filter', error)
+			},
+			onSuccess() {
 				setRuleToDelete(null)
-				refetch()
-			})
-	}
+				queryClient.invalidateQueries('filters')
+			},
+		},
+	)
+
+	const submitMutation = useMutation(
+		({ text }: FormValues) =>
+			axios.post('/api/filters', {
+				ruleDef: { value: text, prop, type: FilterType.Contains },
+			}),
+		{
+			onError(error) {
+				errorHandler('Unable to add filter', error)
+			},
+			onSuccess() {
+				reset()
+			},
+			onSettled() {
+				queryClient.invalidateQueries('filters')
+			},
+		},
+	)
 
 	return (
 		<Box>
@@ -64,21 +88,13 @@ export default function Editor({ title, rules, refetch, prop }: Props): JSX.Elem
 				<ConfirmModal
 					message={`Delete selected rule «${ruleToDelete.ruleDef.value}» ?`}
 					onCancel={() => setRuleToDelete(null)}
-					onConfirm={() => handleDelete(ruleToDelete._id)}
+					onConfirm={() => deleteMutation.mutate(ruleToDelete._id)}
 				/>
 			)}
 			<Box
 				as="form"
 				mb={4}
-				onSubmit={handleSubmit(({ text }) =>
-					fetchApi('/api/filters', {
-						method: 'POST',
-						body: { ruleDef: { value: text, prop, type: FilterType.Contains } },
-					})
-						.then(() => reset())
-						.catch(errorHandler('Unable to add filter'))
-						.finally(refetch),
-				)}
+				onSubmit={handleSubmit(({ text }) => submitMutation.mutateAsync({ text }))}
 			>
 				<FormControl isInvalid={Boolean(errors.text)}>
 					<InputGroup>

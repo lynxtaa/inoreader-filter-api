@@ -1,6 +1,7 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import { render, RenderOptions, RenderResult } from '@testing-library/react'
 import { StrictMode } from 'react'
+import { QueryClientProvider, QueryClient } from 'react-query'
 
 import theme from '../theme'
 
@@ -11,7 +12,7 @@ export default function renderWithProviders(
 	return render(
 		<StrictMode>
 			<ChakraProvider theme={theme} resetCSS>
-				{ui}
+				<QueryClientProvider client={new QueryClient()}>{ui}</QueryClientProvider>
 			</ChakraProvider>
 		</StrictMode>,
 		options,

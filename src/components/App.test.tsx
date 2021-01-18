@@ -76,7 +76,7 @@ beforeEach(() => {
 })
 
 it('shows list of rules', async () => {
-	renderWithProviders(<App initialData={{ data: [] }} />)
+	renderWithProviders(<App />)
 
 	const firstItem = await screen.findByText('Trump')
 	expect(firstItem).toHaveAttribute(
@@ -89,14 +89,14 @@ it('shows list of rules', async () => {
 })
 
 it('shows status bar', async () => {
-	renderWithProviders(<App initialData={{ data: [] }} />)
+	renderWithProviders(<App />)
 
 	expect(await screen.findByText(/Total Hits: 10/i)).toBeInTheDocument()
 	expect(await screen.findByText(/Latest run: .* ago/i)).toBeInTheDocument()
 })
 
 it('adds new rule', async () => {
-	renderWithProviders(<App initialData={{ data: [] }} />)
+	renderWithProviders(<App />)
 
 	expect(await screen.findByText('Trump')).toBeInTheDocument()
 
@@ -107,7 +107,7 @@ it('adds new rule', async () => {
 })
 
 it('removes existing rule', async () => {
-	renderWithProviders(<App initialData={{ data: [] }} />)
+	renderWithProviders(<App />)
 
 	const listItem = await screen.findByText('Trump')
 

@@ -1,9 +1,10 @@
 import { SimpleGrid, Heading, Spinner, Flex } from '@chakra-ui/react'
-import { useEffect } from 'react'
+import axios from 'axios'
+import ms from 'ms'
+import { useQuery } from 'react-query'
 
 import { ArticleProp, RuleData } from '../../api/types'
 import useErrorHandler from '../hooks/useErrorHandler'
-import useFetch from '../hooks/useFetch'
 
 import AppStatus from './AppStatus'
 import ColorModeToggle from './ColorModeToggle'
@@ -14,27 +15,17 @@ const titles: { [key in ArticleProp]: string } = {
 	[ArticleProp.Title]: 'Titles',
 }
 
-type Props = {
-	initialData: {
-		data: RuleData[]
-	}
-}
-
-export default function App({ initialData }: Props): JSX.Element {
+export default function App(): JSX.Element {
 	const errorHandler = useErrorHandler()
 
-	const { data, error, mutate } = useFetch<{ data: RuleData[] }>('/api/filters', {
-		initialData,
-		revalidateOnMount: true,
-	})
-
-	const errorMessage = error?.message
-
-	useEffect(() => {
-		if (errorMessage) {
-			errorHandler('Unable load filters')(new Error(errorMessage))
-		}
-	}, [errorHandler, errorMessage])
+	const { data, error } = useQuery(
+		'filters',
+		() => axios.get<{ data: RuleData[] }>('/api/filters').then((res) => res.data),
+		{
+			staleTime: ms('10s'),
+			onError: (error) => errorHandler('Unable load filters', error),
+		},
+	)
 
 	let totalHits = 0
 	if (data) {
@@ -65,7 +56,6 @@ export default function App({ initialData }: Props): JSX.Element {
 							key={prop}
 							title={titles[prop]}
 							rules={data.data.filter((el) => el.ruleDef.prop === prop)}
-							refetch={mutate}
 							prop={prop}
 						/>
 					))}
