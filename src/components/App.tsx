@@ -44,10 +44,15 @@ export default function App(): JSX.Element {
 			paddingTop={4}
 			direction="column"
 		>
-			{/* Disabling this feature for now because it's broken with next.js */}
-			{false && <ColorModeToggle float="right" ml={2} />}
-			<Heading fontWeight="light" fontSize="4rem" marginBottom={5}>
-				Inoreader Filter
+			<Heading
+				fontWeight="light"
+				fontSize="4rem"
+				marginBottom={5}
+				display="flex"
+				justifyContent="space-between"
+			>
+				<span>Inoreader Filter</span>
+				<ColorModeToggle ml={2} />
 			</Heading>
 			{data ? (
 				<SimpleGrid columns={[1, 1, 2, 2]} spacing={10} mb={10}>
