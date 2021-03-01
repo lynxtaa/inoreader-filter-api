@@ -36,7 +36,7 @@
     "dotenv-safe": "8.2.0",
     "fastify": "3.10.1",
     "fastify-nextjs": "5.1.0",
-    "fastify-static": "3.4.0",
+    "fastify-static": "4.0.1",
     "framer-motion": "3.2.1",
     "http-errors": "1.8.0",
     "mongoose": "5.10.18",
