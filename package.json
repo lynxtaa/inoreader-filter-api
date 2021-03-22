@@ -5,6 +5,7 @@
   "author": "Alex Kondratyuk <lynxtaa@gmail.com>",
   "description": "Filter RSS Articles",
   "repository": "https://github.com/lynxtaa/inoreader-filter.git",
+  "license": "MIT",
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged"
