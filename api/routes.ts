@@ -5,17 +5,14 @@ import { RuleModel } from './models/Rule'
 import { AppStatus, ArticleProp, FilterType } from './types'
 
 const addRoutes: FastifyPluginCallback = (app, options, next) => {
-	app.get(
-		'/status',
-		async (): Promise<AppStatus> => {
-			const { latestRunAt, currentInterval } = inofilter.getStatus()
+	app.get('/status', async (): Promise<AppStatus> => {
+		const { latestRunAt, currentInterval } = inofilter.getStatus()
 
-			return {
-				latestRunAt: latestRunAt ? latestRunAt.toISOString() : null,
-				currentInterval,
-			}
-		},
-	)
+		return {
+			latestRunAt: latestRunAt ? latestRunAt.toISOString() : null,
+			currentInterval,
+		}
+	})
 
 	app.get('/filters', async () => {
 		const rules = await RuleModel.find().collation({ locale: 'en' }).sort('ruleDef.value')
@@ -55,7 +52,7 @@ const addRoutes: FastifyPluginCallback = (app, options, next) => {
 				},
 			},
 		},
-		async (req) => {
+		async req => {
 			const { isActive, ruleDef } = req.body
 			const newRule = await RuleModel.create({
 				isActive: isActive ?? true,
@@ -68,13 +65,13 @@ const addRoutes: FastifyPluginCallback = (app, options, next) => {
 		},
 	)
 
-	app.get<{ Params: { id: string } }>('/filters/:id', async (req) => {
+	app.get<{ Params: { id: string } }>('/filters/:id', async req => {
 		const { id } = req.params
 		const rule = await RuleModel.findById(id)
 		return { data: rule }
 	})
 
-	app.delete<{ Params: { id: string } }>('/filters/:id', async (req) => {
+	app.delete<{ Params: { id: string } }>('/filters/:id', async req => {
 		await RuleModel.deleteOne({ _id: req.params.id })
 		return { data: true }
 	})

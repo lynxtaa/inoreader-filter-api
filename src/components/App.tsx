@@ -15,15 +15,15 @@ const titles: { [key in ArticleProp]: string } = {
 	[ArticleProp.Title]: 'Titles',
 }
 
-export default function App(): JSX.Element {
+export default function App() {
 	const errorHandler = useErrorHandler()
 
 	const { data, error } = useQuery(
 		'filters',
-		() => axios.get<{ data: RuleData[] }>('/api/filters').then((res) => res.data),
+		() => axios.get<{ data: RuleData[] }>('/api/filters').then(res => res.data),
 		{
 			staleTime: ms('10s'),
-			onError: (error) => errorHandler('Unable load filters', error),
+			onError: error => errorHandler('Unable load filters', error),
 		},
 	)
 
@@ -56,11 +56,11 @@ export default function App(): JSX.Element {
 			</Heading>
 			{data ? (
 				<SimpleGrid columns={[1, 1, 2, 2]} spacing={10} mb={10}>
-					{Object.values(ArticleProp).map((prop) => (
+					{Object.values(ArticleProp).map(prop => (
 						<Editor
 							key={prop}
 							title={titles[prop]}
-							rules={data.data.filter((el) => el.ruleDef.prop === prop)}
+							rules={data.data.filter(el => el.ruleDef.prop === prop)}
 							prop={prop}
 						/>
 					))}

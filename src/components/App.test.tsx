@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { screen, waitForElementToBeRemoved } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
@@ -69,7 +73,7 @@ beforeEach(() => {
 		}),
 
 		rest.delete('/api/filters/:id', (req, res, ctx) => {
-			data = data.filter((filter) => filter._id !== req.params.id)
+			data = data.filter(filter => filter._id !== req.params.id)
 			return res(ctx.json({ data: true }))
 		}),
 	)

@@ -3,7 +3,7 @@ import { IconButton, useColorMode, IconButtonProps } from '@chakra-ui/react'
 
 type Props = Omit<IconButtonProps, 'children' | 'aria-label'>
 
-export default function ColorModeToggle(props: Props): JSX.Element {
+export default function ColorModeToggle(props: Props) {
 	const { colorMode, toggleColorMode } = useColorMode()
 
 	return (

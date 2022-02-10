@@ -8,7 +8,7 @@ import isTextMatchesRule from './isTextMatchesRule'
 
 type Logger = {
 	info: (text: string) => void
-	error: (text: string) => void
+	error: (text: unknown) => void
 }
 
 export type InoreaderOptions = {
@@ -64,16 +64,16 @@ export class InoreaderChecker {
 
 			const articles = await this.inoreader.getUnread()
 
-			const hrefRules = rules.filter((rule) => rule.ruleDef.prop === ArticleProp.Href)
-			const titleRules = rules.filter((rule) => rule.ruleDef.prop === ArticleProp.Title)
+			const hrefRules = rules.filter(rule => rule.ruleDef.prop === ArticleProp.Href)
+			const titleRules = rules.filter(rule => rule.ruleDef.prop === ArticleProp.Title)
 
 			const matches: [Article, Rule][] = []
 
 			for (const article of articles) {
 				const matchedRule =
-					hrefRules.find((rule) =>
-						article.canonical.some((el) => isTextMatchesRule(el.href, rule)),
-					) || titleRules.find((rule) => isTextMatchesRule(article.title, rule))
+					hrefRules.find(rule =>
+						article.canonical.some(el => isTextMatchesRule(el.href, rule)),
+					) || titleRules.find(rule => isTextMatchesRule(article.title, rule))
 
 				if (matchedRule) {
 					matches.push([article, matchedRule])
@@ -98,14 +98,13 @@ export class InoreaderChecker {
 				)
 
 				this.logger.info(
-					`Marked as read:\n${articles.map((article) => article.title).join('\n')}`,
+					`Marked as read:\n${articles.map(article => article.title).join('\n')}`,
 				)
 			}
 
 			this.status.latestRunAt = new Date()
 		} catch (err) {
 			this.logger.error(err)
-		} finally {
 		}
 	}
 

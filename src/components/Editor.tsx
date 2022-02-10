@@ -34,19 +34,22 @@ type Props = {
 	prop: ArticleProp
 }
 
-export default function Editor({ title, rules, prop }: Props): JSX.Element {
+export default function Editor({ title, rules, prop }: Props) {
 	const [ruleToDelete, setRuleToDelete] = useState<RuleData | null>(null)
 
 	const queryClient = useQueryClient()
 
 	const errorHandler = useErrorHandler()
 
-	const { register, handleSubmit, errors, formState, reset } = useForm<FormValues>({
+	const {
+		register,
+		handleSubmit,
+		formState: { isSubmitting, errors },
+		reset,
+	} = useForm<FormValues>({
 		defaultValues: { text: '' },
 		mode: 'onSubmit',
 	})
-
-	const { isSubmitting } = formState
 
 	const deleteMutation = useMutation(
 		(ruleId: string) => axios.delete(`/api/filters/${ruleId}`),
@@ -100,10 +103,9 @@ export default function Editor({ title, rules, prop }: Props): JSX.Element {
 					<InputGroup>
 						<Input
 							type="text"
-							name="text"
 							aria-label={`Add ${title.toLowerCase()}...`}
 							placeholder="Add..."
-							ref={register({
+							{...register('text', {
 								required: 'required field',
 								maxLength: {
 									value: 128,
@@ -132,7 +134,7 @@ export default function Editor({ title, rules, prop }: Props): JSX.Element {
 				</FormControl>
 			</Box>
 			<List spacing={4}>
-				{rules.map((el, i) => (
+				{rules.map(el => (
 					<ListItem key={el._id} fontSize="lg" display="flex" alignItems="center">
 						<Button
 							aria-label={`Delete ${el.ruleDef.value}`}

@@ -12,9 +12,9 @@ type Props = {
 const getDistance = (date: string) =>
 	formatDistanceToNow(parseISO(date), { addSuffix: true })
 
-export default function AppStatus({ totalHits, ...rest }: Props): JSX.Element {
+export default function AppStatus({ totalHits, ...rest }: Props) {
 	const { data, error } = useQuery('status', () =>
-		axios.get<AppStatusType>('/api/status').then((res) => res.data),
+		axios.get<AppStatusType>('/api/status').then(res => res.data),
 	)
 
 	return (

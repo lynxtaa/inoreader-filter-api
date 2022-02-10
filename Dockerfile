@@ -1,15 +1,12 @@
-FROM node:15.6.0-alpine
+FROM node:16.13.1-alpine
 
 WORKDIR /server
 
 COPY package*.json ./
 
-RUN npm ci --legacy-peer-deps
+RUN npm ci
 
 COPY . .
-
-ARG MONGO_URI
-ENV MONGO_URI=$MONGO_URI
 
 ENV NEXT_TELEMETRY_DISABLED=1
 

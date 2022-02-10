@@ -29,11 +29,11 @@ export default class Inoreader {
 		const response = await fetch(`https://www.inoreader.com/reader/api/0${url}`, {
 			...options,
 			headers: {
-				Accept: 'application/json',
+				'Accept': 'application/json',
 				'Content-Type': 'application/json',
-				AppId: this.appId,
-				AppKey: this.appKey,
-				Authorization: `GoogleLogin auth=${this.auth}`,
+				'AppId': this.appId,
+				'AppKey': this.appKey,
+				'Authorization': `GoogleLogin auth=${this.auth}`,
 			},
 		})
 

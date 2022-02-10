@@ -1,9 +1,4 @@
-import {
-	prop,
-	modelOptions,
-	getModelForClass,
-	defaultClasses,
-} from '@typegoose/typegoose'
+import { prop, modelOptions, getModelForClass } from '@typegoose/typegoose'
 import { models } from 'mongoose'
 
 import { ArticleProp, FilterType } from '../types'
@@ -38,7 +33,10 @@ class RuleDef {
 		},
 	},
 })
-export class Rule extends defaultClasses.Base {
+export class Rule {
+	@prop()
+	_id!: string
+
 	@prop()
 	createdAt!: Date
 

@@ -5,7 +5,7 @@ import Fastify, { FastifyInstance } from 'fastify'
 import fastifyNextjs from 'fastify-nextjs'
 import fastifyStatic from 'fastify-static'
 import ms from 'ms'
-import pino, { LevelWithSilent, Logger } from 'pino'
+import pino, { P } from 'pino'
 
 import connectMongo from './connectMongo'
 import inofilter from './lib/inofilter'
@@ -13,18 +13,24 @@ import routes from './routes'
 
 export default function createApp({
 	logLevel,
-}: { logLevel?: LevelWithSilent } = {}): FastifyInstance<
+}: { logLevel?: P.LevelWithSilent } = {}): FastifyInstance<
 	Server,
 	IncomingMessage,
 	ServerResponse,
-	Logger
+	P.Logger
 > {
 	const fastify = Fastify({
 		logger: pino({
 			base: null, // отключаем логирование PID и имени хоста
-			prettyPrint: process.env.NODE_ENV !== 'production' && { colorize: true },
 			timestamp: false,
 			level: logLevel || (process.env.NODE_ENV === 'production' ? 'info' : 'debug'),
+			transport:
+				process.env.NODE_ENV !== 'production'
+					? {
+							target: 'pino-pretty',
+							options: { colorize: true },
+					  }
+					: undefined,
 		}),
 	})
 

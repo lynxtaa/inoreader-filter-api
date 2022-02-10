@@ -1,8 +1,5 @@
 {
-	"clearMocks": true,
+	"resetMocks": true,
 	"setupFilesAfterEnv": ["whatwg-fetch", "./src/setupTests.ts"],
-	"roots": ["./pages", "./src"],
-	"transform": {
-		"^.+\\.[jt]sx?$": "babel-jest"
-	}
+	"roots": ["./pages", "./src"]
 }

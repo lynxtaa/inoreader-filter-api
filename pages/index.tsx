@@ -1,13 +1,11 @@
 import { ChakraProvider } from '@chakra-ui/react'
-import ms from 'ms'
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import { StrictMode } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { DehydratedState, Hydrate, dehydrate } from 'react-query/hydration'
 
 import connectMongo from '../api/connectMongo'
 import { RuleModel } from '../api/models/Rule'
-import { RuleData } from '../api/types'
 import App from '../src/components/App'
 import theme from '../src/theme'
 
@@ -17,7 +15,7 @@ type Props = {
 	dehydratedState: DehydratedState
 }
 
-export default function Home({ dehydratedState }: Props): JSX.Element {
+export default function Home({ dehydratedState }: Props) {
 	return (
 		<StrictMode>
 			<ChakraProvider resetCSS theme={theme}>
@@ -31,7 +29,7 @@ export default function Home({ dehydratedState }: Props): JSX.Element {
 	)
 }
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
 	await connectMongo()
 
 	const queryClient = new QueryClient()
@@ -39,11 +37,10 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	const rules = await RuleModel.find().collation({ locale: 'en' }).sort('ruleDef.value')
 
 	queryClient.setQueryData('filters', {
-		data: rules.map((rule) => rule.toJSON() as RuleData),
+		data: rules.map(rule => rule.toJSON()),
 	})
 
 	return {
 		props: { dehydratedState: dehydrate(queryClient) },
-		revalidate: ms('1h') / 1000,
 	}
 }
