@@ -1,5 +1,5 @@
 import { prop, modelOptions, getModelForClass } from '@typegoose/typegoose'
-import { models } from 'mongoose'
+import { models, Types } from 'mongoose'
 
 import { ArticleProp, FilterType } from '../types'
 
@@ -35,7 +35,7 @@ class RuleDef {
 })
 export class Rule {
 	@prop()
-	_id!: string
+	_id!: Types.ObjectId
 
 	@prop()
 	createdAt!: Date
