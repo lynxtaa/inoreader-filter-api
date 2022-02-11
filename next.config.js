@@ -1,5 +1,9 @@
 const config = {
 	reactStrictMode: true,
+	esmExternals: false,
+	experimental: {
+		esmExternals: false,
+	},
 }
 
 module.exports =
